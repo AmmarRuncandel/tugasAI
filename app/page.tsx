@@ -5,7 +5,7 @@ import { DiagnosesShowcase } from "@/components/home/DiagnosesShowcase";
 import { ArchitectureWorkflow } from "@/components/home/ArchitectureWorkflow";
 
 export const metadata: Metadata = {
-  title: "212 NetExpert AI — Sistem Pakar Diagnosis Gangguan Jaringan",
+  title: "212 NetExpert AI Sistem Pakar Diagnosis Gangguan Jaringan",
   description:
     "Sistem Pakar 212 berbasis SWI-Prolog dengan Backward-Chaining untuk mendiagnosis 7 jenis gangguan jaringan komputer secara otomatis dan transparan.",
 };

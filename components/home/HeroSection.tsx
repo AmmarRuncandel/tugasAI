@@ -83,24 +83,52 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-14 pt-8 border-t border-[rgba(255,255,255,0.06)] grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
+          className="mt-14 pt-8 border-t border-[rgba(255,255,255,0.06)] grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto w-full"
         >
-          <div className="p-3 rounded-xl bg-[#161a1f]/60 border border-[rgba(255,255,255,0.06)]">
-            <div className="text-xl md:text-2xl font-bold font-mono text-[#f0b90b]">7 Kasus</div>
-            <div className="text-xs text-[#848e9c] mt-0.5">Gangguan Jaringan</div>
-          </div>
-          <div className="p-3 rounded-xl bg-[#161a1f]/60 border border-[rgba(255,255,255,0.06)]">
-            <div className="text-xl md:text-2xl font-bold font-mono text-[#00d4ff]">13 Fakta</div>
-            <div className="text-xs text-[#848e9c] mt-0.5">Gejala Terstandar</div>
-          </div>
-          <div className="p-3 rounded-xl bg-[#161a1f]/60 border border-[rgba(255,255,255,0.06)]">
-            <div className="text-xl md:text-2xl font-bold font-mono text-[#0ecb81]">100% Native</div>
-            <div className="text-xs text-[#848e9c] mt-0.5">SWI-Prolog Engine</div>
-          </div>
-          <div className="p-3 rounded-xl bg-[#161a1f]/60 border border-[rgba(255,255,255,0.06)]">
-            <div className="text-xl md:text-2xl font-bold font-mono text-[#f7931a]">Explainable</div>
-            <div className="text-xs text-[#848e9c] mt-0.5">Justifikasi Penalaran</div>
-          </div>
+          {[
+            {
+              value: "7 Kasus",
+              label: "Gangguan Jaringan",
+              color: "text-[#f0b90b]",
+              hoverBorder: "hover:border-[rgba(240,185,11,0.35)]",
+              hoverGlow: "group-hover:shadow-[0_0_20px_rgba(240,185,11,0.12)]",
+            },
+            {
+              value: "13 Fakta",
+              label: "Gejala Terstandar",
+              color: "text-[#00d4ff]",
+              hoverBorder: "hover:border-[rgba(0,212,255,0.35)]",
+              hoverGlow: "group-hover:shadow-[0_0_20px_rgba(0,212,255,0.12)]",
+            },
+            {
+              value: "100% Native",
+              label: "SWI-Prolog Engine",
+              color: "text-[#0ecb81]",
+              hoverBorder: "hover:border-[rgba(14,203,129,0.35)]",
+              hoverGlow: "group-hover:shadow-[0_0_20px_rgba(14,203,129,0.12)]",
+            },
+            {
+              value: "Explainable",
+              label: "Justifikasi Penalaran",
+              color: "text-[#f7931a]",
+              hoverBorder: "hover:border-[rgba(247,147,26,0.35)]",
+              hoverGlow: "group-hover:shadow-[0_0_20px_rgba(247,147,26,0.12)]",
+            },
+          ].map((stat, idx) => (
+            <div
+              key={idx}
+              className={`group flex flex-col items-center justify-center text-center p-3.5 sm:p-4 rounded-xl bg-[#14181d]/85 backdrop-blur-sm border border-[rgba(255,255,255,0.08)] ${stat.hoverBorder} ${stat.hoverGlow} transition-all duration-300 h-full min-h-[84px]`}
+            >
+              <div
+                className={`text-base sm:text-lg lg:text-xl font-bold font-mono ${stat.color} tracking-tight whitespace-nowrap leading-tight`}
+              >
+                {stat.value}
+              </div>
+              <div className="text-[11px] sm:text-xs text-[#848e9c] mt-1 whitespace-nowrap font-medium">
+                {stat.label}
+              </div>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>

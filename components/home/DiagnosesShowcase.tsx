@@ -7,7 +7,7 @@ import { formatOSILayer, formatSeverity, getOSILayerColor } from "@/lib/utils";
 
 import { GlassCard } from "@/components/ui/GlassCard";
 import { DynamicIcon } from "@/components/ui/DynamicIcon";
-import { CheckCircle2, ChevronRight } from "lucide-react";
+import { CheckCircle2, ChevronRight, Wrench } from "lucide-react";
 import Link from "next/link";
 
 export function DiagnosesShowcase() {
@@ -61,7 +61,7 @@ export function DiagnosesShowcase() {
         </div>
 
         {/* Diagnoses Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((diag, index) => {
             const layerStyle = getOSILayerColor(diag.layer);
             const sev = formatSeverity(diag.keparahan);
@@ -74,24 +74,24 @@ export function DiagnosesShowcase() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
               >
-                <GlassCard isHoverable className="p-5 h-full flex flex-col justify-between">
+                <GlassCard isHoverable className="p-5 sm:p-6 h-full flex flex-col justify-between rounded-2xl group transition-all duration-300">
                   <div>
                     {/* Top Row: Icon + Badges */}
-                    <div className="flex items-start justify-between gap-3 mb-3">
+                    <div className="flex items-start justify-between gap-3 mb-3.5">
                       <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center border"
+                        className="w-11 h-11 rounded-xl flex items-center justify-center border shadow-sm group-hover:scale-105 transition-transform"
                         style={{
                           background: layerStyle.bg,
                           borderColor: layerStyle.border,
                           color: layerStyle.text,
                         }}
                       >
-                        <DynamicIcon name={diag.iconName} size={20} />
+                        <DynamicIcon name={diag.iconName} size={22} />
                       </div>
 
                       <div className="flex items-center gap-1.5 flex-wrap justify-end">
                         <span
-                          className="px-2 py-0.5 rounded text-[11px] font-semibold border"
+                          className="px-2.5 py-1 rounded-md text-[11px] font-semibold border"
                           style={{
                             background: layerStyle.bg,
                             borderColor: layerStyle.border,
@@ -101,7 +101,7 @@ export function DiagnosesShowcase() {
                           {formatOSILayer(diag.layer)}
                         </span>
                         <span
-                          className="px-2 py-0.5 rounded text-[11px] font-semibold border"
+                          className="px-2.5 py-1 rounded-md text-[11px] font-semibold border"
                           style={{
                             background: sev.bg,
                             borderColor: sev.border,
@@ -113,34 +113,37 @@ export function DiagnosesShowcase() {
                       </div>
                     </div>
 
-                    {/* Title */}
-                    <h3 className="text-base font-bold text-[#eaecef] mb-1.5">{diag.nama}</h3>
-                    <p className="text-xs font-mono text-[#848e9c] mb-3">
+                    {/* Title with flexible min-height for clean baseline */}
+                    <h3 className="text-base sm:text-lg font-bold text-[#eaecef] mb-1.5 min-h-[46px] flex items-center leading-snug">
+                      {diag.nama}
+                    </h3>
+                    <p className="text-xs font-mono text-[#848e9c] mb-3.5">
                       rule: <span className="text-[#f0b90b]">diagnosis({diag.kode})</span>
                     </p>
 
-                    {/* Solusi Preview */}
-                    <div className="p-3 rounded-lg bg-[#14171c] border border-[rgba(255,255,255,0.04)] mb-4">
-                      <div className="text-[11px] font-semibold text-[#848e9c] mb-1">
-                        Rekomendasi Penanganan:
+                    {/* Solusi Preview Box - Expanded with full content without ellipsis */}
+                    <div className="p-3.5 sm:p-4 rounded-xl bg-[#13161c]/90 border border-[rgba(255,255,255,0.08)] mb-5 group-hover:border-[rgba(255,255,255,0.14)] transition-colors">
+                      <div className="flex items-center gap-1.5 text-[11px] font-semibold text-[#848e9c] mb-1.5">
+                        <Wrench size={12} className="text-[#f0b90b]" />
+                        <span>Rekomendasi Penanganan:</span>
                       </div>
-                      <p className="text-xs text-[#eaecef] leading-relaxed line-clamp-2">
+                      <p className="text-xs sm:text-[13px] text-[#eaecef] leading-relaxed font-normal">
                         {diag.solusi}
                       </p>
                     </div>
                   </div>
 
                   {/* Gejala Trigger Count */}
-                  <div className="pt-3 border-t border-[rgba(255,255,255,0.06)] flex items-center justify-between text-xs text-[#848e9c]">
+                  <div className="pt-3.5 border-t border-[rgba(255,255,255,0.06)] flex items-center justify-between text-xs text-[#848e9c]">
                     <div className="flex items-center gap-1.5">
-                      <CheckCircle2 size={13} className="text-[#0ecb81]" />
-                      <span>{diag.gejalaSyarat.length} Gejala Syarat</span>
+                      <CheckCircle2 size={14} className="text-[#0ecb81]" />
+                      <span className="font-medium">{diag.gejalaSyarat.length} Gejala Syarat</span>
                     </div>
                     <Link
                       href="/diagnose"
-                      className="text-[#f0b90b] hover:underline flex items-center gap-1 text-[11px] font-semibold"
+                      className="text-[#f0b90b] hover:text-[#fcd535] flex items-center gap-1 text-xs font-bold transition-colors"
                     >
-                      Uji Kasus <ChevronRight size={12} />
+                      Uji Kasus <ChevronRight size={13} />
                     </Link>
                   </div>
                 </GlassCard>

@@ -147,7 +147,7 @@ export function DiagnoseResultView({
               <div>
                 <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#00d4ff] mb-3">
                   <Lightbulb size={14} />
-                  <span>Explanatory Interface — Justifikasi Jalur Penalaran</span>
+                  <span>Explanatory Interface Justifikasi Jalur Penalaran</span>
                 </div>
                 <div className="p-4 rounded-xl bg-[#14171c] border border-[rgba(255,255,255,0.06)] space-y-2.5">
                   <p className="text-xs text-[#848e9c] mb-2">

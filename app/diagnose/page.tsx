@@ -80,7 +80,7 @@ export default function DiagnosePage() {
     .map(([id]) => id);
 
   return (
-    <div className="flex-1 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 py-10 sm:py-16 bg-[#0b0e11] min-h-[calc(100vh-64px)]">
+    <div className="flex-1 flex flex-col items-center px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-24 bg-[#0b0e11]">
       {phase === "intro" && (
         <DiagnoseIntro onStart={handleStart} totalGejala={totalGejala} />
       )}

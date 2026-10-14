@@ -41,7 +41,7 @@ export default function ExplorerPage() {
   };
 
   return (
-    <div className="flex-1 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+    <div className="flex-1 pt-28 sm:pt-36 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
       {/* Header */}
       <div className="mb-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#161a1f] border border-[rgba(255,255,255,0.08)] text-xs text-[#00d4ff] font-medium mb-3">
