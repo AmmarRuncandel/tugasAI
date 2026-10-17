@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { BUILD_PRESETS } from "@/lib/constants";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { MessageSquare, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Cpu } from "lucide-react";
 import Link from "next/link";
 
 export function DiagnosesShowcase() {
@@ -17,10 +17,10 @@ export function DiagnosesShowcase() {
               Ontologi Knowledge Base
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#eaecef] mt-2">
-              5 Kategori Rakitan PC Cerdas yang Dikenali Prolog
+              6 Kategori Rakitan PC Cerdas yang Dikenali Prolog
             </h2>
             <p className="text-sm text-[#848e9c] mt-2 max-w-xl">
-              Setiap konfigurasi dihitung dan diverifikasi otomatis oleh aturan logika SWI-Prolog untuk memastikan keseimbangan performa, kompatibilitas socket, dan efisiensi daya.
+              Setiap konfigurasi dihitung dan diverifikasi otomatis oleh aturan logika SWI-Prolog untuk memastikan keseimbangan performa, kompatibilitas socket, generasi RAM, dan efisiensi daya PSU.
             </p>
           </div>
 
@@ -65,9 +65,28 @@ export function DiagnosesShowcase() {
                   </div>
 
                   <h3 className="text-lg font-bold text-[#eaecef] mb-2">{preset.nama}</h3>
-                  <p className="text-xs sm:text-sm text-[#848e9c] leading-relaxed mb-6">
+                  <p className="text-xs sm:text-sm text-[#848e9c] leading-relaxed mb-4">
                     {preset.deskripsi}
                   </p>
+
+                  {/* Spesifikasi Kunci dari Dataset */}
+                  {preset.spekKunci && preset.spekKunci.length > 0 && (
+                    <div className="space-y-1.5 mb-5 pt-3 border-t border-[rgba(255,255,255,0.05)]">
+                      <span className="text-[10px] uppercase font-semibold text-[#5e6673] tracking-wider block">
+                        Komposisi Komponen Prolog:
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {preset.spekKunci.map((spek, sIdx) => (
+                          <span
+                            key={sIdx}
+                            className="px-2 py-0.5 rounded text-[11px] bg-[#141820] text-[#c8ced8] border border-[rgba(255,255,255,0.06)] font-mono"
+                          >
+                            {spek}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="pt-4 border-t border-[rgba(255,255,255,0.06)] flex items-center justify-between">

@@ -16,6 +16,7 @@ export const BUILD_PRESETS = [
     kisaran: "Rp 5 - 8 Juta",
     deskripsi: "Sistem hemat daya, responsif untuk multitasking dokumen, web browsing, dan pemrograman santai.",
     warna: "#00d4ff",
+    spekKunci: ["Intel i3-12100F", "GTX 1650 4GB", "16GB RAM", "B660M DDR4", "PSU 450W"],
   },
   {
     id: "esports_gaming",
@@ -24,6 +25,7 @@ export const BUILD_PRESETS = [
     kisaran: "Rp 9 - 13 Juta",
     deskripsi: "Sangat optimal untuk Valorant, CS2, Dota 2, Apex Legends, dan game AAA 1080p setting medium-high.",
     warna: "#f0b90b",
+    spekKunci: ["Ryzen 5 5600G", "RX 6600 8GB GDDR6", "16GB RAM DDR4", "B550M DDR4", "PSU 550W"],
   },
   {
     id: "intel_arc_edition",
@@ -32,6 +34,7 @@ export const BUILD_PRESETS = [
     kisaran: "Rp 10 - 12 Juta",
     deskripsi: "Menggunakan GPU Intel Arc A750 8GB dengan dual AV1 hardware encoder & XMX AI cores, siap libas game 1080p & editing video.",
     warna: "#38bdf8",
+    spekKunci: ["Intel i5-12400F", "Intel Arc A750 8GB", "16GB RAM DDR4", "B660M DDR4", "PSU 650W"],
   },
   {
     id: "aaa_gaming",
@@ -40,33 +43,36 @@ export const BUILD_PRESETS = [
     kisaran: "Rp 15 - 20 Juta",
     deskripsi: "Platform modern AM5 & DDR5, siap libas game berat Cyberpunk & Black Myth Wukong 1440p dengan DLSS 3.",
     warna: "#0ecb81",
+    spekKunci: ["Ryzen 5 7600X (AM5)", "RTX 4060 8GB", "32GB RAM DDR5 6000MHz", "B650M DDR5", "PSU 650W"],
   },
   {
     id: "content_creation",
     nama: "Content Creation & 4K Editing",
     badge: "Workstation Pro",
     kisaran: "Rp 22 - 30 Juta",
-    deskripsi: "16-core CPU untuk rendering Premiere Pro 4K, After Effects, dan akselerasi CUDA 3D Blender.",
+    deskripsi: "Prosesor 12-core / 24-thread untuk rendering Premiere Pro 4K, After Effects, dan akselerasi CUDA 3D Blender.",
     warna: "#f7931a",
+    spekKunci: ["Ryzen 9 5900X (12C/24T)", "RTX 4070 12GB", "32GB RAM DDR4", "B550M DDR4", "PSU 750W Gold"],
   },
   {
     id: "enthusiast_flagship",
     nama: "Ultimate Gaming Flagship",
     badge: "Tanpa Kompromi",
     kisaran: "> Rp 35 Juta",
-    deskripsi: "Kombinasi CPU gaming terbaik dunia (7800X3D) dan GPU 4K RTX 4080 SUPER 16GB.",
+    deskripsi: "Monster 16-core Ryzen 9 5950X dipadukan GPU monster RTX 3090 24GB GDDR6X untuk gaming 4K ultra tanpa kompromi.",
     warna: "#c084fc",
+    spekKunci: ["Ryzen 9 5950X (16C/32T)", "RTX 3090 24GB", "32GB RAM 3600MHz", "X570 DDR4", "PSU 850W Gold"],
   },
 ];
 
 export const QUICK_PROMPTS = [
-  { label: "🎮 Rakit PC Gaming 10 Juta", value: "rekomendasi esports_gaming" },
-  { label: "🔵 Rakit PC Intel Arc A750 (~10 Juta)", value: "rekomendasi intel_arc_edition" },
-  { label: "🚀 Rakit PC 1440p AM5 (15-20 Juta)", value: "rekomendasi aaa_gaming" },
-  { label: "💼 PC Coding & Office Murah", value: "rekomendasi office_coding" },
-  { label: "🎬 PC Editing Video 4K & Render", value: "rekomendasi content_creation" },
-  { label: "👑 PC Sultan Flagship 4K", value: "rekomendasi enthusiast_flagship" },
-  { label: "🔍 Cek Kompatibilitas Hardware", value: "cek_kompatibilitas" },
+  { label: "Rakit PC Gaming 10 Juta", value: "rekomendasi esports_gaming" },
+  { label: "Rakit PC Intel Arc A750", value: "rekomendasi intel_arc_edition" },
+  { label: "Rakit PC 1440p AM5 (15-20 Juta)", value: "rekomendasi aaa_gaming" },
+  { label: "PC Coding & Office Murah", value: "rekomendasi office_coding" },
+  { label: "PC Editing Video 4K & Render", value: "rekomendasi content_creation" },
+  { label: "PC Ultimate Flagship 4K", value: "rekomendasi enthusiast_flagship" },
+  { label: "Cek Kompatibilitas Hardware", value: "cek_kompatibilitas" },
 ];
 
 export const KB_QUERIES: KBQueryItem[] = [

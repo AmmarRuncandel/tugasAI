@@ -3,50 +3,82 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, Database, MessageSquare, ShieldCheck, Cpu } from "lucide-react";
+import { Sparkles, Database, MessageSquare, Cpu, GitBranch, Brain } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+
+const STATS = [
+  {
+    value: "946",
+    label: "Komponen Terdaftar",
+    sublabel: "CPU, GPU, RAM, SSD, PSU, Casing",
+    color: "#f0b90b",
+    icon: Cpu,
+  },
+  {
+    value: "100%",
+    label: "Verifikasi Logika",
+    sublabel: "Bebas bottleneck & konflik",
+    color: "#00d4ff",
+    icon: GitBranch,
+  },
+  {
+    value: "SWI",
+    label: "Prolog Engine",
+    sublabel: "Mesin deduksi logika formal",
+    color: "#0ecb81",
+    icon: Brain,
+  },
+  {
+    value: "4",
+    label: "Aturan Kompatibilitas",
+    sublabel: "Socket, DDR, PSU Watt, Form Factor",
+    color: "#f7931a",
+    icon: Database,
+  },
+];
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden pt-20 pb-24 md:pt-28 md:pb-32 bg-radial from-[#1e2329]/40 via-[#0b0e11] to-[#0b0e11]">
-      {/* Background ambient glow blobs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-r from-[#f0b90b]/10 to-[#00d4ff]/10 blur-[120px] rounded-full pointer-events-none" />
+    <section className="relative overflow-hidden pt-24 pb-20 md:pt-32 md:pb-28 bg-radial from-[#1e2329]/40 via-[#0b0e11] to-[#0b0e11]">
+      {/* Background glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-r from-[#f0b90b]/8 to-[#00d4ff]/8 blur-[130px] rounded-full pointer-events-none" />
+      <div className="absolute top-2/3 left-1/4 w-[300px] h-[200px] bg-[#0ecb81]/5 blur-[100px] rounded-full pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         {/* Animated Badge */}
         <motion.div
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1e2329]/80 border border-[rgba(240,185,11,0.25)] text-[#f0b90b] text-xs font-semibold mb-8 shadow-[0_0_20px_rgba(240,185,11,0.15)]"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1e2329]/80 border border-[rgba(240,185,11,0.25)] text-[#f0b90b] text-xs font-semibold mb-8 shadow-[0_0_20px_rgba(240,185,11,0.15)]"
         >
-          <Sparkles size={14} className="animate-pulse" />
+          <Sparkles size={13} className="animate-pulse" />
           <span>Tugas Besar Kecerdasan Buatan • Universitas Siliwangi</span>
         </motion.div>
 
-        {/* Main Heading */}
+        {/* Main Heading — wider max-w for breathing room */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[#eaecef] max-w-4xl mx-auto leading-[1.15]"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#eaecef] max-w-5xl mx-auto leading-[1.12]"
         >
           Sistem Pakar Konsultan{" "}
           <span className="bg-gradient-to-r from-[#f0b90b] via-[#f5c842] to-[#00d4ff] bg-clip-text text-transparent">
-            Perakitan PC & Kompatibilitas
+            Perakitan PC &amp; Kompatibilitas
           </span>
         </motion.h1>
 
-        {/* Subtitle */}
+        {/* Subtitle — wider max-w-3xl for less cramped look */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-6 text-base sm:text-lg md:text-xl text-[#848e9c] max-w-2xl mx-auto leading-relaxed"
+          className="mt-6 text-base sm:text-lg md:text-xl text-[#848e9c] max-w-3xl mx-auto leading-relaxed"
         >
-          Rekomendasi rakitan PC cerdas dan validasi kompatibilitas hardware otomatis
+          Rekomendasi rakitan PC cerdas dan validasi kompatibilitas hardware secara otomatis
           menggunakan representasi logika SWI-Prolog dan penalaran{" "}
-          <strong className="text-[#eaecef] font-medium">Constraint Satisfaction & Rules</strong>.
+          <strong className="text-[#eaecef] font-semibold">Constraint Satisfaction &amp; Rules</strong>.
         </motion.p>
 
         {/* Action Buttons */}
@@ -74,41 +106,68 @@ export function HeroSection() {
               leftIcon={<Database size={16} />}
               className="text-sm sm:text-base font-semibold"
             >
-              KB Explorer (5 Query Akademik)
+              KB Explorer
             </Button>
           </Link>
         </motion.div>
 
-        {/* Stats counter row */}
+        {/* Stats — modern card-style with dividers */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 pt-10 border-t border-[rgba(255,255,255,0.06)] grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-3xl mx-auto text-left"
+          className="mt-16 max-w-5xl mx-auto"
         >
-          <div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[#eaecef] font-mono">
-              946
-            </div>
-            <div className="text-xs text-[#848e9c] mt-0.5">Komponen Terdaftar</div>
-          </div>
-          <div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[#00d4ff] font-mono">
-              100%
-            </div>
-            <div className="text-xs text-[#848e9c] mt-0.5">Verifikasi Bebas Bottleneck</div>
-          </div>
-          <div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[#0ecb81] font-mono">
-              SWI-Prolog
-            </div>
-            <div className="text-xs text-[#848e9c] mt-0.5">Mesin Logika Deduktif</div>
-          </div>
-          <div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[#f7931a] font-mono">
-              Explainable
-            </div>
-            <div className="text-xs text-[#848e9c] mt-0.5">Transparansi Justifikasi</div>
+          {/* Top border line */}
+          <div className="h-px bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.1)] to-transparent mb-0" />
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-[rgba(255,255,255,0.07)] border border-[rgba(255,255,255,0.07)] rounded-2xl overflow-hidden bg-[#0e1116]/60 backdrop-blur-sm">
+            {STATS.map((stat, idx) => {
+              const Icon = stat.icon;
+              return (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.5 + idx * 0.08 }}
+                  className="relative flex flex-col items-start sm:items-center text-left sm:text-center px-5 sm:px-6 py-5 sm:py-6 group hover:bg-[rgba(255,255,255,0.02)] transition-colors"
+                >
+                  {/* Top accent line per stat */}
+                  <div
+                    className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity"
+                    style={{ background: `linear-gradient(90deg, transparent, ${stat.color}80, transparent)` }}
+                  />
+
+                  {/* Icon badge */}
+                  <div
+                    className="w-8 h-8 rounded-lg flex items-center justify-center mb-3 border"
+                    style={{
+                      backgroundColor: `${stat.color}15`,
+                      borderColor: `${stat.color}30`,
+                      color: stat.color,
+                    }}
+                  >
+                    <Icon size={16} />
+                  </div>
+
+                  {/* Value */}
+                  <div
+                    className="text-2xl sm:text-3xl font-extrabold font-mono leading-none"
+                    style={{ color: stat.color }}
+                  >
+                    {stat.value}
+                  </div>
+
+                  {/* Label */}
+                  <div className="text-xs font-semibold text-[#eaecef] mt-1.5">{stat.label}</div>
+
+                  {/* Sublabel */}
+                  <div className="text-[11px] text-[#5e6673] mt-0.5 leading-tight hidden sm:block">
+                    {stat.sublabel}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>

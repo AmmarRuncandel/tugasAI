@@ -22,7 +22,15 @@ export function TeamSection() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {TEAM_MEMBERS.map((m, idx) => (
-          <GlassCard key={idx} isHoverable className="p-6 text-center space-y-3">
+          <GlassCard
+            key={idx}
+            isHoverable
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: idx * 0.1, ease: "easeOut" }}
+            className="p-6 text-center space-y-3"
+          >
             <div
               className="w-14 h-14 rounded-2xl mx-auto flex items-center justify-center font-bold text-lg border border-[rgba(255,255,255,0.1)] shadow-lg"
               style={{

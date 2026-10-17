@@ -34,56 +34,36 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Inactivity auto-hide timer ref
   const idleTimerRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Scroll direction detection
   const { scrollY } = useScroll();
 
-  // Function to start inactivity auto-hide timer (e.g., 3.2s)
   const startIdleHideTimer = (currentScrollY: number) => {
-    if (idleTimerRef.current) {
-      clearTimeout(idleTimerRef.current);
-    }
-
-    // Only auto-hide on idle if scrolled down past top area (> 70px) and not hovered
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
     if (currentScrollY > 70 && !mobileMenuOpen && !isHovered) {
-      idleTimerRef.current = setTimeout(() => {
-        setHidden(true);
-      }, 1500);
+      idleTimerRef.current = setTimeout(() => setHidden(true), 1500);
     }
   };
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
     const diff = latest - previous;
-
-    // Do not auto-hide when mobile drawer is open or user is hovering over navbar
     if (mobileMenuOpen || isHovered) return;
-
     if (latest <= 60) {
-      // Near top of page: always show navbar and clear any hide timer
       setHidden(false);
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
       return;
     }
-
     if (diff > 6) {
-      // Scrolling down -> hide immediately
       setHidden(true);
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
     } else if (diff < -3) {
-      // Scrolling up even slightly -> show immediately and start idle timer
       setHidden(false);
       startIdleHideTimer(latest);
     }
   });
 
-  // Clear timer on component unmount
   useEffect(() => {
-    return () => {
-      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
-    };
+    return () => { if (idleTimerRef.current) clearTimeout(idleTimerRef.current); };
   }, []);
 
   const handleMouseEnter = () => {
@@ -109,45 +89,44 @@ export default function Navbar() {
       onMouseLeave={handleMouseLeave}
       className="fixed top-3 sm:top-5 inset-x-0 z-50 px-3 sm:px-6 pointer-events-none"
     >
-      <div className="max-w-6xl mx-auto rounded-full bg-[#161a1f]/85 backdrop-blur-2xl border border-[rgba(255,255,255,0.12)] shadow-[0_8px_32px_rgba(0,0,0,0.55),0_0_20px_rgba(240,185,11,0.05)] px-4 sm:px-6 h-14 flex items-center justify-between gap-3 sm:gap-6 pointer-events-auto transition-all">
-        {/* Brand Logo with Square Badge */}
-        <Link href="/" className="flex items-center gap-2.5 group shrink-0 select-none">
-          <div className="w-8 h-8 rounded-md bg-[#14171c] border border-[rgba(240,185,11,0.5)] flex items-center justify-center font-mono font-black text-xs text-[#f0b90b] shadow-[0_0_12px_rgba(240,185,11,0.2)] group-hover:border-[#f0b90b] group-hover:scale-105 transition-all">
+      {/* Main navbar pill — wider max-w, slimmer h-12 */}
+      <div className="max-w-7xl mx-auto rounded-full bg-[#161a1f]/85 backdrop-blur-2xl border border-[rgba(255,255,255,0.12)] shadow-[0_8px_32px_rgba(0,0,0,0.55),0_0_20px_rgba(240,185,11,0.05)] px-4 sm:px-8 h-12 flex items-center justify-between gap-4 pointer-events-auto transition-all">
+
+        {/* Brand Logo */}
+        <Link href="/" className="flex items-center gap-2 group shrink-0 select-none">
+          <div className="w-7 h-7 rounded-md bg-[#14171c] border border-[rgba(240,185,11,0.5)] flex items-center justify-center font-mono font-black text-[11px] text-[#f0b90b] shadow-[0_0_12px_rgba(240,185,11,0.2)] group-hover:border-[#f0b90b] group-hover:scale-105 transition-all">
             212
           </div>
-          <div className="flex items-center gap-1.5 font-extrabold text-sm sm:text-base tracking-tight text-[#eaecef]">
+          <div className="flex items-center gap-1.5 font-extrabold text-sm tracking-tight text-[#eaecef] whitespace-nowrap">
             <span>212</span>
             <span className="text-[#f0b90b]">PCExpert</span>
-            <span className="hidden sm:inline-block text-[10px] font-mono px-1.5 py-0.5 rounded bg-[rgba(240,185,11,0.15)] text-[#f0b90b] border border-[rgba(240,185,11,0.3)] ml-0.5">
+            <span className="hidden sm:inline-block text-[10px] font-mono px-1.5 py-0.5 rounded bg-[rgba(240,185,11,0.15)] text-[#f0b90b] border border-[rgba(240,185,11,0.3)]">
               AI
             </span>
           </div>
         </Link>
 
-        {/* Center Nav Links with Floating Active Indicator */}
-        <nav className="hidden md:flex items-center gap-1">
+        {/* Center Nav Links — nowrap to prevent wrapping */}
+        <nav className="hidden lg:flex items-center gap-0.5 flex-1 justify-center">
           {NAV_ITEMS.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
-
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-colors ${
+                className={`relative px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 whitespace-nowrap transition-colors ${
                   isActive
                     ? "text-[#f0b90b]"
                     : "text-[#848e9c] hover:text-[#eaecef]"
                 }`}
               >
-                <Icon size={14} className={isActive ? "text-[#f0b90b]" : "text-[#848e9c]"} />
+                <Icon size={13} className={isActive ? "text-[#f0b90b]" : "text-[#848e9c]"} />
                 <span>{item.label}</span>
-
-                {/* Glowing bottom bar indicator */}
                 {isActive && (
                   <motion.div
                     layoutId="activeNavIndicator"
-                    className="absolute -bottom-1.5 left-3 right-3 h-[2.5px] bg-[#f0b90b] rounded-full shadow-[0_0_10px_rgba(240,185,11,0.9)]"
+                    className="absolute -bottom-1.5 left-3 right-3 h-[2px] bg-[#f0b90b] rounded-full shadow-[0_0_10px_rgba(240,185,11,0.9)]"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -156,35 +135,35 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Right Action & Status Indicator */}
-        <div className="flex items-center gap-2.5 sm:gap-3">
-          <div className="hidden lg:block">
+        {/* Right Side */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div className="hidden xl:block">
             <StatusIndicator />
           </div>
 
-          <Link href="/diagnose" className="hidden sm:inline-flex">
+          <Link href="/diagnose" className="hidden md:inline-flex">
             <Button
               variant="primary"
               size="sm"
-              rightIcon={<ArrowRight size={13} />}
-              className="rounded-full shadow-[0_0_14px_rgba(240,185,11,0.3)] text-xs font-bold px-4"
+              rightIcon={<ArrowRight size={12} />}
+              className="rounded-full shadow-[0_0_14px_rgba(240,185,11,0.3)] text-xs font-bold px-3.5 h-8"
             >
-              Diagnosa Sekarang
+              Konsultasi PC
             </Button>
           </Link>
 
-          {/* Mobile hamburger button */}
+          {/* Mobile hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-full text-[#848e9c] hover:text-[#eaecef] hover:bg-[#1e2329] border border-[rgba(255,255,255,0.08)] cursor-pointer"
+            className="lg:hidden p-2 rounded-full text-[#848e9c] hover:text-[#eaecef] hover:bg-[#1e2329] border border-[rgba(255,255,255,0.08)] cursor-pointer"
             aria-label="Toggle mobile menu"
           >
-            {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
           </button>
         </div>
       </div>
 
-      {/* Floating Mobile Drawer Card */}
+      {/* Floating Mobile Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -192,7 +171,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden mt-2 max-w-6xl mx-auto rounded-2xl border border-[rgba(255,255,255,0.12)] bg-[#161a1f]/95 backdrop-blur-2xl p-4 shadow-2xl space-y-2 pointer-events-auto"
+            className="lg:hidden mt-2 max-w-7xl mx-auto rounded-2xl border border-[rgba(255,255,255,0.12)] bg-[#161a1f]/95 backdrop-blur-2xl p-4 shadow-2xl space-y-2 pointer-events-auto"
           >
             <div className="pb-2">
               <StatusIndicator className="w-full justify-center" />
@@ -219,7 +198,7 @@ export default function Navbar() {
             <div className="pt-2">
               <Link href="/diagnose" onClick={() => setMobileMenuOpen(false)} className="block w-full">
                 <Button variant="primary" size="md" className="w-full rounded-xl font-bold">
-                  Mulai Diagnosis Sekarang
+                  Mulai Konsultasi &amp; Cek PC
                 </Button>
               </Link>
             </div>

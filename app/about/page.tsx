@@ -6,7 +6,6 @@ import { TeamSection } from "@/components/about/TeamSection";
 import { Brain } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Tentang Sistem — 212 PCExpert AI",
   description:
     "Arsitektur sistem pakar 212 konsultan perakitan PC & kompatibilitas hardware berbasis SWI-Prolog.",
 };

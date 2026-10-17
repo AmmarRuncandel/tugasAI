@@ -38,12 +38,20 @@ export interface BuildRecommendation {
   namaCasing: string;
   totalHarga: number;
   justifikasi: string;
+  notes?: string;
 }
 
 export interface CompatibilityAnalysis {
   status: "kompatibel" | "tidak_kompatibel";
   totalHarga: number;
   alasan: string[];
+}
+
+export interface QuickReplyOption {
+  label: string;
+  value: string;
+  desc?: string;
+  isInputChoice?: boolean;
 }
 
 export interface ChatMessage {
@@ -53,7 +61,7 @@ export interface ChatMessage {
   timestamp: string;
   recommendation?: BuildRecommendation;
   compatibility?: CompatibilityAnalysis;
-  quickReplies?: { label: string; value: string }[];
+  quickReplies?: QuickReplyOption[];
 }
 
 export interface QueryResult {

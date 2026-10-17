@@ -370,7 +370,7 @@ const allExtracted = [
   ...Array.from(caseMap.values()).map(cs => ({ ...cs, kategori: 'casing', iconName: 'Box' })),
 ];
 
-console.log(`\n🎉 TOTAL SELURUH HARDWARE BERSIH TERDAFTAR: ${allExtracted.length} KOMPONEN!`);
+console.log(`\nTOTAL SELURUH HARDWARE BERSIH TERDAFTAR: ${allExtracted.length} KOMPONEN!`);
 
 // Save to extracted_components.json
 fs.writeFileSync(path.join(__dirname, '..', 'lib', 'extracted_components.json'), JSON.stringify(allExtracted, null, 2), 'utf-8');

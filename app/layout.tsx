@@ -18,13 +18,10 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: "212 — NetExpert AI",
-    template: "%s | 212 NetExpert AI",
-  },
+  title: "212 — PCExpert AI",
   description:
-    "Sistem Pakar 212 berbasis SWI-Prolog untuk mendiagnosis gangguan jaringan komputer secara otomatis menggunakan metode Backward-Chaining dan Explanatory Interface.",
-  keywords: "212, sistem pakar, jaringan komputer, SWI-Prolog, AI, diagnosis, backward chaining",
+    "Sistem Pakar Konsultan Perakitan PC & Kompatibilitas Hardware berbasis representasi logika SWI-Prolog dan penalaran Constraint Satisfaction.",
+  keywords: "212, sistem pakar, perakitan pc, komputer, SWI-Prolog, AI, rekomendasi pc, kompatibilitas hardware",
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",

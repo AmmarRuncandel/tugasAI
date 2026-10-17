@@ -1,22 +1,35 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { GraduationCap, Terminal, Cpu } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[rgba(255,255,255,0.08)] bg-[#0b0e11] text-[#848e9c] text-xs">
+    <motion.footer
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="border-t border-[rgba(255,255,255,0.08)] bg-[#0b0e11] text-[#848e9c] text-xs"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand info */}
           <div className="md:col-span-2 space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-md bg-[#161a1f] border border-[rgba(240,185,11,0.4)] flex items-center justify-center font-mono font-black text-[10px] text-[#f0b90b]">
+            <Link href="/" className="inline-flex items-center gap-2 group select-none">
+              <div className="w-7 h-7 rounded-md bg-[#14171c] border border-[rgba(240,185,11,0.5)] flex items-center justify-center font-mono font-black text-[11px] text-[#f0b90b] shadow-[0_0_12px_rgba(240,185,11,0.2)] group-hover:border-[#f0b90b] group-hover:scale-105 transition-all">
                 212
               </div>
-              <span className="font-bold text-sm text-[#eaecef]">
-                212 <span className="text-[#f0b90b]">PCExpert</span> AI
-              </span>
-            </div>
+              <div className="flex items-center gap-1.5 font-extrabold text-sm tracking-tight text-[#eaecef]">
+                <span>212</span>
+                <span className="text-[#f0b90b]">PCExpert</span>
+                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[rgba(240,185,11,0.15)] text-[#f0b90b] border border-[rgba(240,185,11,0.3)]">
+                  AI
+                </span>
+              </div>
+            </Link>
             <p className="text-xs leading-relaxed max-w-sm text-[#848e9c]">
               Sistem Pakar Konsultan Perakitan PC & Kompatibilitas Hardware berbasis representasi logika,
               aturan produksi (IF-THEN), dan penalaran Constraint Satisfaction menggunakan SWI-Prolog.
@@ -45,7 +58,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/explorer" className="hover:text-[#f0b90b] transition-colors flex items-center gap-1">
-                  KB Explorer (5 Query Akademik)
+                  KB Explorer
                 </Link>
               </li>
               <li>
@@ -86,6 +99,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

@@ -12,7 +12,13 @@ interface ArchitectureModuleCardProps {
 
 export function ArchitectureModuleCard({ module }: ArchitectureModuleCardProps) {
   return (
-    <GlassCard className="p-6 sm:p-8 flex flex-col justify-between h-full space-y-6">
+    <GlassCard
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="p-6 sm:p-8 flex flex-col justify-between h-full space-y-6"
+    >
       <div>
         {/* Header: Number and Icon */}
         <div className="flex items-center justify-between mb-4">

@@ -1,202 +1,151 @@
-# 🧠 212 — NetExpert AI
-### Sistem Pakar Diagnosis Gangguan Jaringan Komputer Berbasis SWI-Prolog & Next.js
+# 🧠 212 — PCExpert AI
+### Sistem Pakar Konsultan Perakitan PC & Kompatibilitas Hardware Berbasis SWI-Prolog & Next.js
 > **Tugas Besar Mata Kuliah Kecerdasan Buatan (Artificial Intelligence)**  
 > **Program Studi Informatika — Fakultas Teknik — Universitas Siliwangi**  
-> **Dosen Pengampu:** Dr. Aradea, S.T., M.T.
+> **Dosen Pengampu:** Dr. Aradea, S.T., M.T.  
+> **Sesuai Ketentuan:** Sistem Cerdas • Logic, Rules and Representation • Logic Programming (PROLOG)
 
 ---
 
 ## 👥 Tim Pengembang (Kelompok Mahasiswa)
 
-| No | Nama Mahasiswa | NPM | Peran & Kontribusi |
+| No | Nama Mahasiswa | NPM | Peran & Kontribusi Utama |
 |:---:|:---|:---:|:---|
 | **1** | **Muhammad Ammar Luthfi Azzufar** | `247006111118` | Knowledge Base Formulation, Rule Design & Fullstack Integration |
-| **2** | **Muhammad Adryan Suryaman** | `247006111060` | Knowledge Acquisition, Symptom Verification & Test Validation |
+| **2** | **Muhammad Adryan Suryaman** | `247006111060` | Hardware Acquisition, Compatibility Verification & Test Validation |
 | **3** | **Muhammad Ziya Pasya Alghifari** | `247006111111` | UI/UX Architecture, Data Analysis & Topology Representation |
 
 ---
 
-## 📌 Deskripsi Sistem
+## 📌 1. Deskripsi & Domain Permasalahan Sistem
 
-**NetExpert AI (212)** adalah aplikasi Sistem Pakar modern yang mengintegrasikan paradigma **pemrograman deklaratif logika murni (SWI-Prolog)** sebagai mesin penalaran (*Inference Engine*) dengan antarmuka web modern (*Next.js 16 & TypeScript*). 
+**PCExpert AI (212)** adalah sistem pakar cerdas yang memadukan paradigma **pemrograman deklaratif logika murni (SWI-Prolog)** sebagai mesin penalaran (*Inference Engine*) dengan antarmuka web modern (*Next.js 16, TypeScript, Tailwind CSS, & Framer Motion*).
 
-Sistem ini dirancang untuk mendiagnosis **7 jenis kerusakan jaringan komputer** yang mencakup lapisan OSI (*Physical, Data Link, Network, hingga Application Layer*) berdasarkan analisis **13 fakta gejala** menggunakan metode penalaran **Backward-Chaining (Goal-Driven)**.
-
-### ✨ Fitur Unggulan
-1. **Real SWI-Prolog Subprocess Bridge**: Bukan simulasi JavaScript, melainkan penalaran langsung yang diproses oleh binary SWI-Prolog melalui `child_process`.
-2. **Explanatory Interface**: Menampilkan transparansi justifikasi penalaran mengapa kesimpulan ditarik dan daftar gejala apa saja yang memicunya.
-3. **Interactive Diagnosis Stepper**: Kuesioner diagnosis bertahap dengan animasi halus (*Framer Motion*) dan dukungan shortcut keyboard (`Y` untuk Ya, `T` untuk Tidak, `B` untuk Kembali).
-4. **Knowledge Base Explorer**: Modul verifikasi akademik berisi **5 Query Prolog** sesuai silabus perkuliahan AI (Ekstraksi Variabel, Conjunctive Query, Rekursi Topologi, Operasi List Irisan Gejala, dan Seluruh Ontologi KB).
-5. **Dark Modern UI/UX**: Desain antarmuka gelap premium terinspirasi dari Binance & macOS Frosted Glass.
+Sistem ini bertindak sebagai **Konsultan Perakitan Komputer Ahli** yang memecahkan masalah pemilihan komponen hardware PC. Merakit PC melibatkan ratusan aturan kompatibilitas fisik dan elektrikal yang ketat:
+* **Kompatibilitas Socket:** Prosesor Intel LGA1700 hanya dapat dipasang pada Motherboard socket LGA1700 (H610/B660/B760). Prosesor AMD AM5 hanya cocok dengan Motherboard AM5 (A620/B650/X670).
+* **Kompatibilitas Generasi Memori (RAM):** Motherboard DDR4 hanya dapat menerima keping RAM DDR4, sedangkan Motherboard DDR5 hanya menerima RAM DDR5.
+* **Kecukupan Daya Elektrikal (PSU):** Kartu grafis (GPU) berdaya tinggi (misal RTX 4070 SUPER / RTX 3090) membutuhkan daya minimum PSU 650W - 850W. Memasang PSU 450W akan memicu *system crash* / kerusakan hardware.
+* **Kompatibilitas Form Factor Casing:** Motherboard ukuran standar ATX tidak akan muat di dalam Casing Micro-ATX (mATX).
 
 ---
 
-## 🛠️ Prasyarat Sistem (Prerequisites)
+## 📊 2. Integrasi Dataset Kaggle & Standarisasi Harga (IDR)
 
-Sebelum menjalankan aplikasi, pastikan komputer/laptop telah terpasang:
+Proyek ini mengintegrasikan seluruh dataset nyata dari Kaggle yang tersimpan pada folder `data/` (total **12.797 baris data mentah**):
+* `CPU.csv` (1.440 baris data prosesor $\rightarrow$ 437 CPU unik valid)
+* `GPU.csv` (600 baris data kartu grafis $\rightarrow$ 164 GPU unik valid, termasuk varian **Intel Arc Series**)
+* `MotherBoard.csv` (1.440 baris data $\rightarrow$ 93 Motherboard unik valid)
+* `PowerSupply.csv` (1.120 baris data $\rightarrow$ 38 PSU unik valid)
+* `RAM.csv` (1.440 baris data $\rightarrow$ 80 Modul RAM unik valid)
+* `StorageSSD.csv` (2.640 baris data $\rightarrow$ 84 SSD NVMe/SATA unik valid)
+* `cabinates.csv` (3.120 baris data casing $\rightarrow$ 50 Casing PC unik valid)
 
-1. **Node.js**: Versi `v18.17+` atau disarankan `v20+` / `v24+`.  
-   *Cek versi:* `node -v`
-2. **SWI-Prolog**: Versi `9.x` atau yang lebih baru.  
-   *Unduh gratis di situs resmi:* [https://www.swi-prolog.org/download/stable](https://www.swi-prolog.org/download/stable)  
-   *(Pastikan memilih opsi **"Add swipl to system PATH"** saat instalasi jika menggunakan installer Windows).*
-3. **Git**: Untuk clone dan pull repository.
+### 🧹 Alasan Pembersihan & Filtrasi (Data Wrangling)
+Mengapa dari 12.797 baris dihasilkan **946 komponen unik terdaftar**?  
+Karena dataset Kaggle merupakan hasil crawling e-commerce India (Amazon/Flipkart) yang memuat ribuan duplikasi penjual pada produk yang sama serta sampah non-hardware (pasta termal, braket kipas, caddy laptop, stun gun, gantungan rak). Proses ekstraksi menyaring dan menstandarisasi seluruh atribut teknis hardware asli menjadi **946 komponen PC siap rakit**.
 
----
+### 💵 Formula Konversi Kurs Rupee (INR) ke Rupiah (IDR)
+Data harga asli dalam mata uang Rupee India (INR / `₹`) secara otomatis dikonversi ke Rupiah Indonesia (IDR) menggunakan rumus kurs:
+$$\text{Harga IDR} = \text{Harga INR} \times 190$$
 
-## 🚀 Panduan Instalasi & Menjalankan Proyek
-
-Ikuti langkah-langkah berikut untuk menjalankan program di komputer kamu:
-
-### 1. Clone Repository & Masuk Direktori
-```bash
-git clone <URL_REPOSITORY_GITHUB>
-cd tugasAI
-```
-
-### 2. Install Dependencies
-Jalankan perintah berikut untuk mengunduh semua library (Next.js, Framer Motion, Lucide React, dll.):
-```bash
-npm install
-```
-
-### 3. Konfigurasi Environment (`.env.local`)
-Sistem secara otomatis mencoba mendeteksi lokasi instalasi SWI-Prolog di komputermu. Namun, agar lebih pasti dan menghindari perbedaan letak folder antar komputer anggota tim:
-
-1. Duplikat file template `.env.example` menjadi `.env.local`:
-   * **Windows (PowerShell):**
-     ```powershell
-     Copy-Item .env.example .env.local
-     ```
-   * **Linux / macOS:**
-     ```bash
-     cp .env.example .env.local
-     ```
-2. Buka file `.env.local` dan sesuaikan lokasi file biner `swipl` di komputermu:
-   * **Windows (Lokasi Default Drive C):**
-     ```env
-     SWIPL_PATH=C:\Program Files\swipl\bin\swipl.exe
-     ```
-   * **Windows (Jika Terinstall di Drive D):**
-     ```env
-     SWIPL_PATH=D:\swipl\bin\swipl.exe
-     ```
-   * **macOS (Homebrew Apple Silicon):**
-     ```env
-     SWIPL_PATH=/opt/homebrew/bin/swipl
-     ```
-   * **Linux (Ubuntu/Debian via apt):**
-     ```env
-     SWIPL_PATH=/usr/bin/swipl
-     ```
-   *(Catatan: File `.env.local` sudah diabaikan oleh `.gitignore`, sehingga konfigurasi pribadi kamu tidak akan saling menimpa saat `git pull` atau `git push`).*
-
-### 4. Jalankan Development Server
-```bash
-npm run dev
-```
-
-### 5. Buka Aplikasi di Browser
-Buka browser favoritmu (Chrome, Edge, Firefox) dan akses:
-👉 **[http://localhost:3000](http://localhost:3000)**
-
-*(Periksa indikator status di pojok kanan atas Navbar. Jika tertulis **`● SWI-Prolog Online`** berwarna hijau, artinya backend web telah sukses berkomunikasi dengan runtime SWI-Prolog).*
+*Contoh Pembuktian:*
+* Intel Core i5-12400F: $\text{₹}13.008 \times 190 = \mathbf{\text{Rp } 2.471.520}$ *(Sesuai harga pasar Indonesia)*.
+* AMD Ryzen 5 3600: $\text{₹}9.800 \times 190 = \mathbf{\text{Rp } 1.862.000}$.
+* Intel Arc A750 8GB GDDR6: $\text{₹}18.150 \times 190 = \mathbf{\text{Rp } 3.450.000}$.
+* NVIDIA GeForce RTX 3060 12GB: $\text{₹}30.000 \times 190 = \mathbf{\text{Rp } 5.700.000}$.
 
 ---
 
-## 🧭 Panduan Navigasi & Modul Halaman
+## ⚡ 3. Aturan Logika Kompatibilitas Formal (`pakar_pc.pl`)
 
-| Halaman | URL | Penjelasan & Fungsi |
-|:---|:---|:---|
-| **Beranda** | `/` | Showcase 7 jenis kerusakan jaringan, 4 pilar sistem pakar, dan diagram alur inferensi sistem. |
-| **Mulai Diagnosis** | `/diagnose` | Konsultasi interaktif penelusuran 13 gejala jaringan. Menghasilkan analisis diagnosis, derajat keparahan, solusi perbaikan, dan justifikasi penalaran Explanatory Interface. |
-| **KB Explorer** | `/explorer` | Verifikasi langsung 5 query akademik Prolog (ekstraksi variabel ontologi, conjunctive logic, traversal rekursi rute topologi kampus, dan irisan list). |
-| **Tentang Sistem** | `/about` | Pembahasan 4 pilar sistem pakar klasik (*Knowledge Acquisition, Knowledge Base, Inference Engine, Explanatory Interface*), teknologi yang dipakai, dan identitas tim pengembang. |
+Aturan inferensi Prolog dirumuskan dalam klausa Horn implikasi `:-`:
 
----
+```prolog
+% Aturan 1: Socket CPU harus sama dengan Socket Motherboard
+cocok_cpu_mobo(CPU, Mobo) :-
+    cpu(CPU, _, _, Socket, _, _, _),
+    motherboard(Mobo, _, Socket, _, _, _).
 
-## 🗂️ Ontologi Knowledge Base (`pakar_jaringan.pl`)
+% Aturan 2: Generasi RAM harus sama dengan slot Motherboard
+cocok_mobo_ram(Mobo, RAM) :-
+    motherboard(Mobo, _, _, TipeRAM, _, _),
+    ram(RAM, _, TipeRAM, _, _, _).
 
-Knowledge Base memuat **7 Aturan Produksi (Production Rules)** yang diklasifikasikan berdasarkan hierarki Model OSI:
+% Aturan 3: Daya PSU harus >= Kebutuhan Minimal Daya GPU
+daya_psu_cukup(GPU, PSU) :-
+    gpu(GPU, _, _, MinWatt, _, _, _),
+    psu(PSU, _, Watt, _, _),
+    Watt >= MinWatt.
 
-| Kode Diagnosis | Nama Masalah Jaringan | Kategori OSI Layer | Tingkat Keparahan | Gejala Syarat Pemicu |
-|:---|:---|:---|:---:|:---|
-| `kabel_lan_rusak` | Kerusakan Fisik Kabel / Port LAN | Physical Layer (L1) | Tinggi | Lampu LAN mati, kabel status unplugged |
-| `wifi_signal_weak` | Sinyal WiFi Lemah / Interferensi | Physical Layer (L1) | Sedang | Sinyal 1 bar, latency sangat lambat |
-| `ip_conflict` | Konflik Alamat IP (IP Conflict) | Network Layer (L3) | Tinggi | Muncul notif IP conflict, IP APIPA 169.254.x.x |
-| `gateway_down` | Default Gateway / Router Down | Network Layer (L3) | Tinggi | Terhubung LAN/WiFi, ping ke gateway gagal |
-| `dns_failure` | Kegagalan Resolusi DNS Server | Application Layer (L7) | Sedang | Ping IP 8.8.8.8 berhasil, namun buka domain web gagal |
-| `isp_outage` | Gangguan Jalur Utama ISP | Network Layer (L3) | Tinggi | Ping gateway berhasil, namun ping IP publik 8.8.8.8 gagal |
-| `driver_adapter_error` | Masalah Driver Network Adapter | Data Link Layer (L2) | Tinggi | Tanda seru kuning pada Device Manager |
-
----
-
-## 📁 Struktur Direktori Proyek
-
-```
-tugasAI/
-├── app/
-│   ├── about/page.tsx        # Halaman Tentang Sistem & Arsitektur
-│   ├── api/
-│   │   ├── diagnose/route.ts # Endpoint API inferensi batch diagnosis Prolog
-│   │   └── query/route.ts    # Endpoint API pengujian 5 query akademik Prolog
-│   ├── diagnose/page.tsx     # Halaman konsultasi kuesioner diagnosis
-│   ├── explorer/page.tsx     # Halaman Knowledge Base Explorer
-│   ├── globals.css           # Styling dasar, tema gelap, & CSS variables
-│   ├── icon.svg              # Vektor favicon resmi "212"
-│   ├── layout.tsx            # Root layout, font Inter & JetBrains Mono, Nav & Footer
-│   └── page.tsx              # Halaman Beranda (Landing Page)
-├── components/
-│   ├── about/                # Komponen halaman Tentang Sistem & Tim
-│   ├── diagnose/             # Komponen quiz, stepper kuesioner, & hasil Explanatory
-│   ├── explorer/             # Komponen selector query & penampil hasil eksekusi
-│   ├── home/                 # Komponen hero, feature grid, & showcase ontologi
-│   ├── layout/               # Navbar & Footer
-│   └── ui/                   # Reusable components (GlassCard, Button, Badge, CodeBlock)
-├── lib/
-│   ├── constants.ts          # Dataset gejala, diagnosis, query, & identitas tim
-│   ├── prolog.ts             # Bridge subprocess SWI-Prolog & auto path resolution
-│   ├── types.ts              # Definisi interface TypeScript
-│   └── utils.ts              # Utility class Tailwind cn() & formatters
-├── pakar_jaringan.pl         # Knowledge Base, Fakta, Aturan, & Topologi Prolog
-├── .env.example              # Template variabel konfigurasi environment
-├── .env.local                # Konfigurasi lokal (diabaikan oleh Git)
-├── package.json              # Daftar dependensi package project
-└── README.md                 # Dokumentasi panduan lengkap proyek
+% Aturan 4: Motherboard muat di Casing
+cocok_mobo_casing(Mobo, Casing) :-
+    motherboard(Mobo, _, _, _, FormMobo, _),
+    casing(Casing, _, FormCasing, _),
+    ( FormCasing == atx ; FormCasing == FormMobo ).
 ```
 
 ---
 
-## ❓ FAQ & Troubleshooting
+## 🖥️ 4. Dua Fitur Interaktif Utama
 
-### Q1: Navbar menampilkan indikator "Prolog Offline" warna merah?
-**Solusi:**
-1. Pastikan software SWI-Prolog sudah terinstall di komputermu.
-2. Buka file `.env.local`, periksa kembali apakah path `SWIPL_PATH` sudah mengarah ke file `swipl.exe` yang benar di komputermu (misal: `C:\Program Files\swipl\bin\swipl.exe`).
-3. Restart server pengembangan dengan menekan `Ctrl + C` di terminal, lalu jalankan `npm run dev` kembali.
+1. **AI Chatbot Konsultan (`/diagnose`):**
+   * Pengguna dapat berkonsultasi luwes (misal: *"Rakit PC 10 juta buat Valorant"*, *"Rakit PC 1440p AM5"*, *"Berapa harga Ryzen 5 3600?"*, *"Cek harga Intel Arc A750"*).
+   * Menghasilkan rakitan 7 komponen 100% kompatibel dan seimbang bebas bottleneck dengan rincian biaya dan justifikasi penalaran ilmiah.
+2. **Kalkulator Kompatibilitas Mandiri (`/diagnose`):**
+   * Pengguna bebas memilih kombinasi CPU, Mobo, RAM, GPU, PSU, dan Casing.
+   * Prolog membuktikan secara formal apakah susunan tersebut valid atau memiliki kontradiksi fisik/daya.
+   * Dilengkapi **5 Skenario Uji Cepat** untuk membuktikan aturan logika secara langsung.
 
-### Q2: Port 3000 sudah terpakai oleh aplikasi lain (*EADDRINUSE*)?
-**Solusi:**
-Jalankan dev server di port lain:
-```bash
-npm run dev -- -p 3001
-```
-Lalu buka browser di `http://localhost:3001`.
+---
 
-### Q3: Apakah bisa dijalankan langsung dari Terminal SWI-Prolog biasa tanpa web?
-**Bisa.** File `pakar_jaringan.pl` mendukung mode interaktif konsol:
-1. Buka terminal, masuk ke folder project:
+## 🧪 5. Pembuktian 5 Query Akademik (KB Explorer `/explorer`)
+
+1. **Query 1 — Ekstraksi Variabel Hardware:**
+   `?- cpu(Kode, Nama, _, am5, _, Harga, Tier).` (Memfilter seluruh prosesor Socket AM5 via unifikasi).
+2. **Query 2 — Conjunctive Query (Multi-Kondisi AND):**
+   `?- gpu(Kode, Nama, nvidia, MinWatt, VRAM, Harga, _), VRAM >= 12, Harga =< 12000000.` (NVIDIA AND VRAM >= 12GB AND Harga <= 12 Juta).
+3. **Query 3 — Rekursi Penjumlahan Harga Komponen:**
+   `?- hitung_total_harga([...], Total).` (Menerapkan struktur rekursif `[Head|Tail]` dengan base case list kosong).
+4. **Query 4 — Operasi List Irisan Form Factor (`member_both`):**
+   `?- findall(F, form_factor_irisan(F, [atx, matx], [matx]), Irisan).` (Mencari form factor bersama antara mobo dan casing).
+5. **Query 5 — Seluruh Fakta Ontologi di Basis Pengetahuan:**
+   `?- cpu(Kode, Nama, Brand, Socket, TDP, Harga, Tier).` (Menampilkan 437 CPU dari 946 komponen terdaftar).
+
+---
+
+## 🚀 6. Panduan Menjalankan Sistem
+
+### A. Melalui Antarmuka Web (Next.js + SWI-Prolog Bridge)
+1. **Jalankan server lokal:**
    ```bash
-   swipl pakar_jaringan.pl
+   npm run dev
    ```
-2. Ketik perintah:
+2. **Buka di browser:**
+   `http://localhost:3000`
+3. Cek indikator di Navbar: pastikan bertuliskan **`● SWI-Prolog Online`** berwarna hijau.
+4. Buka menu **"Konsultasi & Cek PC"** untuk mencoba Chatbot AI dan Kalkulator Kompatibilitas.
+
+### B. Melalui Konsol Terminal Standalone (SWI-Prolog Langsung)
+Sistem juga dapat dijalankan secara konsol interaktif tanpa browser:
+1. Buka terminal di folder proyek:
+   ```bash
+   swipl pakar_pc.pl
+   ```
+2. Ketik perintah utama:
    ```prolog
    ?- mulai.
    ```
-3. Jawab pertanyaan interaktif dengan mengetik `y.` atau `t.` (diakhiri titik).
+3. Pilih nomor kebutuhan (1-6 diakhiri tanda titik, misal: `2.`). Prolog akan langsung mengeluarkan rincian rakitan, estimasi biaya, dan justifikasi logikanya di layar terminal.
 
 ---
 
-## 📜 Lisensi & Hak Cipta
-Dikembangkan sebagai pemenuhan Tugas Besar Mata Kuliah Kecerdasan Buatan (AI) Tahun Akademik 2026.  
-**Universitas Siliwangi — Jurusan Informatika.**
+## ⚙️ 7. Konfigurasi Environment (`.env.local`)
+Aplikasi memiliki **auto-detection fallback** yang secara otomatis mengenali SWI-Prolog di path default Windows (`D:\swipl\bin\swipl.exe` atau `C:\Program Files\swipl\bin\swipl.exe`) dan sistem `PATH`.
+
+Jika Anda menginstal SWI-Prolog di lokasi kustom, salin `.env.example` ke `.env.local`:
+```env
+SWIPL_PATH=D:\swipl\bin\swipl.exe
+```
+
+---
+© 2026 **212 PCExpert AI** • Program Studi Informatika Universitas Siliwangi

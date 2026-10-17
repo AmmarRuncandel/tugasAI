@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { BuildRecommendation } from "@/lib/types";
 import { formatRupiah } from "@/lib/utils";
 import { GlassCard } from "@/components/ui/GlassCard";
@@ -14,6 +14,9 @@ import {
   Box,
   CheckCircle2,
   Sparkles,
+  Copy,
+  Check,
+  AlertTriangle,
 } from "lucide-react";
 
 interface BuildResultCardProps {
@@ -21,6 +24,8 @@ interface BuildResultCardProps {
 }
 
 export function BuildResultCard({ build }: BuildResultCardProps) {
+  const [copied, setCopied] = useState(false);
+
   const parts = [
     { label: "Prosesor (CPU)", name: build.namaCpu, icon: Cpu, color: "#00d4ff" },
     { label: "Motherboard", name: build.namaMobo, icon: CircuitBoard, color: "#f0b90b" },
@@ -30,6 +35,27 @@ export function BuildResultCard({ build }: BuildResultCardProps) {
     { label: "Penyimpanan (SSD)", name: build.namaStorage, icon: Database, color: "#38bdf8" },
     { label: "Casing PC", name: build.namaCasing, icon: Box, color: "#a78bfa" },
   ];
+
+  const handleCopy = () => {
+    const text = [
+      `[SPESIFIKASI RAKITAN PC: ${build.labelKebutuhan}]`,
+      `Estimasi Biaya: ${formatRupiah(build.totalHarga)}`,
+      `---------------------------------------`,
+      `• CPU         : ${build.namaCpu}`,
+      `• Motherboard : ${build.namaMobo}`,
+      `• RAM         : ${build.namaRam}`,
+      `• GPU         : ${build.namaGpu}`,
+      `• PSU         : ${build.namaPsu}`,
+      `• Storage     : ${build.namaStorage}`,
+      `• Casing      : ${build.namaCasing}`,
+      `---------------------------------------`,
+      `Justifikasi Prolog: ${build.justifikasi}`,
+    ].join("\n");
+
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <GlassCard className="p-5 sm:p-6 border border-[rgba(240,185,11,0.25)] bg-[#12151a]/90 space-y-5">
@@ -42,11 +68,31 @@ export function BuildResultCard({ build }: BuildResultCardProps) {
           </div>
           <h3 className="text-lg font-bold text-[#eaecef]">{build.labelKebutuhan}</h3>
         </div>
-        <div className="text-left sm:text-right">
-          <span className="text-xs text-[#848e9c]">Estimasi Total Biaya</span>
-          <div className="text-xl font-extrabold text-[#f0b90b] font-mono">
-            {formatRupiah(build.totalHarga)}
+        <div className="text-left sm:text-right flex items-center sm:flex-col sm:items-end justify-between gap-2">
+          <div>
+            <span className="text-[11px] text-[#848e9c] block">Estimasi Total Biaya</span>
+            <div className="text-xl font-extrabold text-[#f0b90b] font-mono">
+              {formatRupiah(build.totalHarga)}
+            </div>
           </div>
+
+          <button
+            onClick={handleCopy}
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-[#1a1f29] hover:bg-[#252c3a] text-[#848e9c] hover:text-[#eaecef] border border-[rgba(255,255,255,0.08)] transition-all cursor-pointer"
+            title="Salin Rincian ke Clipboard"
+          >
+            {copied ? (
+              <>
+                <Check size={12} className="text-[#0ecb81]" />
+                <span className="text-[#0ecb81]">Tersalin!</span>
+              </>
+            ) : (
+              <>
+                <Copy size={12} />
+                <span>Salin Spek</span>
+              </>
+            )}
+          </button>
         </div>
       </div>
 
@@ -65,11 +111,16 @@ export function BuildResultCard({ build }: BuildResultCardProps) {
               >
                 <Icon size={14} />
               </div>
-              <div className="min-w-0">
-                <span className="text-[10px] text-[#848e9c] uppercase font-semibold">
+              <div className="min-w-0 flex-1">
+                <span className="text-[10px] text-[#848e9c] uppercase font-semibold block mb-0.5 tracking-wider">
                   {p.label}
                 </span>
-                <p className="font-medium text-[#eaecef] truncate">{p.name}</p>
+                <p
+                  className="font-medium text-[#eaecef] line-clamp-2 leading-snug break-words text-xs"
+                  title={p.name}
+                >
+                  {p.name}
+                </p>
               </div>
             </div>
           );
@@ -86,6 +137,19 @@ export function BuildResultCard({ build }: BuildResultCardProps) {
           {build.justifikasi}
         </p>
       </div>
+
+      {/* Catatan Penyesuaian Anggaran & Keterbatasan Basis Data */}
+      {build.notes && (
+        <div className="p-3.5 rounded-xl bg-[#f0b90b]/10 border border-[#f0b90b]/30 text-xs space-y-1.5">
+          <div className="flex items-center gap-1.5 font-bold text-[#f0b90b]">
+            <AlertTriangle size={14} className="shrink-0" />
+            <span>Catatan Penyesuaian Anggaran &amp; Keterbatasan Basis Data:</span>
+          </div>
+          <p className="text-[#eaecef]/90 text-xs leading-relaxed">
+            {build.notes}
+          </p>
+        </div>
+      )}
     </GlassCard>
   );
 }

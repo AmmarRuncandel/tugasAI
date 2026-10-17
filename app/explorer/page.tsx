@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { KB_QUERIES } from "@/lib/constants";
 import { QueryResult } from "@/lib/types";
 import { QueryCardList } from "@/components/explorer/QueryCardList";
@@ -43,7 +44,12 @@ export default function ExplorerPage() {
   return (
     <div className="flex-1 pt-28 sm:pt-36 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
       {/* Header */}
-      <div className="mb-10">
+      <motion.div
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="mb-10"
+      >
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#161a1f] border border-[rgba(255,255,255,0.08)] text-xs text-[#00d4ff] font-medium mb-3">
           <Database size={13} />
           <span>Interactive Knowledge Base Verification</span>
@@ -55,25 +61,35 @@ export default function ExplorerPage() {
           Verifikasi kebenaran ontologi hardware, aturan logika deduktif kecocokan socket,
           penjumlahan rekursif harga rakitan, dan operasi irisan form factor sesuai 5 kriteria pengujian akademik.
         </p>
-      </div>
+      </motion.div>
 
       {/* Grid: Left query selector, Right executor */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div className="lg:col-span-5">
+        <motion.div
+          initial={{ opacity: 0, x: -16 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.45, delay: 0.1, ease: "easeOut" }}
+          className="lg:col-span-5"
+        >
           <div className="text-xs font-semibold uppercase tracking-wider text-[#848e9c] mb-3">
             Daftar 5 Query Akademik
           </div>
           <QueryCardList activeId={activeId} onSelect={(id) => setActiveId(id)} />
-        </div>
+        </motion.div>
 
-        <div className="lg:col-span-7">
+        <motion.div
+          initial={{ opacity: 0, x: 16 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.45, delay: 0.15, ease: "easeOut" }}
+          className="lg:col-span-7"
+        >
           <QueryExecutor
             query={activeQuery}
             isLoading={loading}
             result={results[activeId] || null}
             onRunQuery={handleRunQuery}
           />
-        </div>
+        </motion.div>
       </div>
     </div>
   );
