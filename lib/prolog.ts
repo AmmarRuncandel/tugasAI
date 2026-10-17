@@ -2,7 +2,7 @@ import { spawn } from "child_process";
 import path from "path";
 import fs from "fs";
 
-const PROLOG_FILE = path.join(process.cwd(), "pakar_jaringan.pl");
+const PROLOG_FILE = path.join(process.cwd(), "pakar_pc.pl");
 
 const KNOWN_PATHS = [
   "D:\\swipl\\bin\\swipl.exe",

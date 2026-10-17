@@ -1,109 +1,59 @@
 "use client";
 
 import React, { useState } from "react";
-import { SEMUA_GEJALA } from "@/lib/constants";
-import { DiagnosisApiResponse } from "@/lib/types";
-import { DiagnoseIntro } from "@/components/diagnose/DiagnoseIntro";
-import { DiagnoseQuiz } from "@/components/diagnose/DiagnoseQuiz";
-import { DiagnoseResultView } from "@/components/diagnose/DiagnoseResultView";
+import { ChatbotView } from "@/components/pcbuilder/ChatbotView";
+import { CompatibilityChecker } from "@/components/pcbuilder/CompatibilityChecker";
+import { MessageSquare, ShieldCheck, Sparkles, Cpu } from "lucide-react";
 
 export default function DiagnosePage() {
-  const [phase, setPhase] = useState<"intro" | "quiz" | "done">("intro");
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, "ya" | "tidak">>({});
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<DiagnosisApiResponse | null>(null);
-
-  const totalGejala = SEMUA_GEJALA.length;
-  const currentGejala = SEMUA_GEJALA[currentIdx];
-
-  const handleStart = () => {
-    setPhase("quiz");
-    setCurrentIdx(0);
-    setAnswers({});
-    setResult(null);
-  };
-
-  const submitDiagnosis = async (finalAnswers: Record<string, "ya" | "tidak">) => {
-    setPhase("done");
-    setLoading(true);
-    setResult(null);
-
-    const gejalaDipilih = Object.entries(finalAnswers)
-      .filter(([, ans]) => ans === "ya")
-      .map(([id]) => id);
-
-    try {
-      const resp = await fetch("/api/diagnose", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ gejala: gejalaDipilih }),
-      });
-      const data: DiagnosisApiResponse = await resp.json();
-      setResult(data);
-    } catch {
-      setResult({
-        success: false,
-        error: "Gagal berkomunikasi dengan server backend. Pastikan server aktif.",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleAnswer = (answer: "ya" | "tidak") => {
-    const updated = { ...answers, [currentGejala.id]: answer };
-    setAnswers(updated);
-
-    if (currentIdx < totalGejala - 1) {
-      setCurrentIdx((prev) => prev + 1);
-    } else {
-      submitDiagnosis(updated);
-    }
-  };
-
-  const handleBack = () => {
-    if (currentIdx > 0) {
-      setCurrentIdx((prev) => prev - 1);
-    }
-  };
-
-  const handleRestart = () => {
-    setPhase("intro");
-    setCurrentIdx(0);
-    setAnswers({});
-    setResult(null);
-  };
-
-  const selectedGejalaIds = Object.entries(answers)
-    .filter(([, ans]) => ans === "ya")
-    .map(([id]) => id);
+  const [activeTab, setActiveTab] = useState<"chat" | "checker">("chat");
 
   return (
-    <div className="flex-1 flex flex-col items-center px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-24 bg-[#0b0e11]">
-      {phase === "intro" && (
-        <DiagnoseIntro onStart={handleStart} totalGejala={totalGejala} />
-      )}
+    <div className="flex-1 flex flex-col items-center px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-24 bg-[#0b0e11] min-h-screen">
+      {/* Header */}
+      <div className="text-center max-w-2xl mx-auto mb-8 space-y-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#161a22] border border-[rgba(240,185,11,0.25)] text-[#f0b90b] text-xs font-semibold">
+          <Sparkles size={13} />
+          <span>Sistem Pakar Konsultan Hardware PC</span>
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#eaecef] tracking-tight">
+          Konsultasi & Uji Kompatibilitas PC
+        </h1>
+        <p className="text-xs sm:text-sm text-[#848e9c] leading-relaxed">
+          Didukung oleh mesin inferensi logika <strong>SWI-Prolog</strong> untuk merumuskan konfigurasi hardware seimbang, bebas bottleneck, dan 100% kompatibel.
+        </p>
 
-      {phase === "quiz" && (
-        <DiagnoseQuiz
-          currentGejala={currentGejala}
-          currentIndex={currentIdx}
-          totalGejala={totalGejala}
-          currentAnswer={answers[currentGejala.id] ?? null}
-          onAnswer={handleAnswer}
-          onBack={handleBack}
-        />
-      )}
+        {/* Tab Switcher */}
+        <div className="inline-flex p-1 rounded-xl bg-[#14171f] border border-[rgba(255,255,255,0.08)] mt-4">
+          <button
+            onClick={() => setActiveTab("chat")}
+            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+              activeTab === "chat"
+                ? "bg-[#f0b90b] text-[#0e1116] shadow-[0_0_15px_rgba(240,185,11,0.3)]"
+                : "text-[#848e9c] hover:text-[#eaecef]"
+            }`}
+          >
+            <MessageSquare size={14} />
+            <span>AI Chatbot Konsultan</span>
+          </button>
+          <button
+            onClick={() => setActiveTab("checker")}
+            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+              activeTab === "checker"
+                ? "bg-[#00d4ff] text-[#0e1116] shadow-[0_0_15px_rgba(0,212,255,0.3)]"
+                : "text-[#848e9c] hover:text-[#eaecef]"
+            }`}
+          >
+            <ShieldCheck size={14} />
+            <span>Kalkulator Kompatibilitas</span>
+          </button>
+        </div>
+      </div>
 
-      {phase === "done" && (
-        <DiagnoseResultView
-          isLoading={loading}
-          result={result}
-          selectedGejalaIds={selectedGejalaIds}
-          onRestart={handleRestart}
-        />
-      )}
+      {/* Main Container */}
+      <div className="w-full max-w-4xl">
+        {activeTab === "chat" ? <ChatbotView /> : <CompatibilityChecker />}
+      </div>
     </div>
   );
 }

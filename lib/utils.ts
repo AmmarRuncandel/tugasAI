@@ -94,3 +94,15 @@ export function formatSeverity(sev: string): { label: string; text: string; bg: 
       };
   }
 }
+
+/**
+ * Format angka ke format mata uang Rupiah
+ */
+export function formatRupiah(amount: number): string {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+

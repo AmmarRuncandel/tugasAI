@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/Button";
 
 const NAV_ITEMS = [
   { href: "/", label: "Beranda", icon: Home },
-  { href: "/diagnose", label: "Mulai Diagnosis", icon: Activity },
+  { href: "/diagnose", label: "Konsultasi & Cek PC", icon: Activity },
   { href: "/explorer", label: "KB Explorer", icon: Database },
   { href: "/about", label: "Tentang Sistem", icon: Info },
 ];
@@ -117,7 +117,7 @@ export default function Navbar() {
           </div>
           <div className="flex items-center gap-1.5 font-extrabold text-sm sm:text-base tracking-tight text-[#eaecef]">
             <span>212</span>
-            <span className="text-[#f0b90b]">NetExpert</span>
+            <span className="text-[#f0b90b]">PCExpert</span>
             <span className="hidden sm:inline-block text-[10px] font-mono px-1.5 py-0.5 rounded bg-[rgba(240,185,11,0.15)] text-[#f0b90b] border border-[rgba(240,185,11,0.3)] ml-0.5">
               AI
             </span>

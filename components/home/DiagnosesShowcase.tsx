@@ -2,30 +2,12 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { DIAGNOSIS_LIST } from "@/lib/constants";
-import { formatOSILayer, formatSeverity, getOSILayerColor } from "@/lib/utils";
-
+import { BUILD_PRESETS } from "@/lib/constants";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { DynamicIcon } from "@/components/ui/DynamicIcon";
-import { CheckCircle2, ChevronRight, Wrench } from "lucide-react";
+import { MessageSquare, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
 export function DiagnosesShowcase() {
-  const [selectedLayer, setSelectedLayer] = useState<string>("all");
-
-  const layers = [
-    { id: "all", label: "Semua Layer (7 Kasus)" },
-    { id: "physical_layer", label: "Physical (L1)" },
-    { id: "data_link_layer", label: "Data Link (L2)" },
-    { id: "network_layer", label: "Network (L3)" },
-    { id: "application_layer", label: "Application (L7)" },
-  ];
-
-  const filtered =
-    selectedLayer === "all"
-      ? DIAGNOSIS_LIST
-      : DIAGNOSIS_LIST.filter((d) => d.layer === selectedLayer);
-
   return (
     <section className="py-20 bg-[#0b0e11]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,121 +17,76 @@ export function DiagnosesShowcase() {
               Ontologi Knowledge Base
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#eaecef] mt-2">
-              7 Kerusakan Jaringan yang Mampu Didiagnosis
+              5 Kategori Rakitan PC Cerdas yang Dikenali Prolog
             </h2>
             <p className="text-sm text-[#848e9c] mt-2 max-w-xl">
-              Setiap entitas masalah dihubungkan dengan serangkaian premis gejala spesifik dan tindakan solutif.
+              Setiap konfigurasi dihitung dan diverifikasi otomatis oleh aturan logika SWI-Prolog untuk memastikan keseimbangan performa, kompatibilitas socket, dan efisiensi daya.
             </p>
           </div>
 
-          {/* Layer Filter Pills */}
-          <div className="flex flex-wrap gap-1.5 p-1 bg-[#161a1f] rounded-xl border border-[rgba(255,255,255,0.06)]">
-            {layers.map((l) => (
-              <button
-                key={l.id}
-                onClick={() => setSelectedLayer(l.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
-                  selectedLayer === l.id
-                    ? "bg-[#2b3139] text-[#eaecef] shadow-sm font-semibold border border-[rgba(255,255,255,0.1)]"
-                    : "text-[#848e9c] hover:text-[#eaecef]"
-                }`}
-              >
-                {l.label}
-              </button>
-            ))}
-          </div>
+          <Link
+            href="/diagnose"
+            className="inline-flex items-center gap-2 text-xs font-bold text-[#f0b90b] hover:text-[#ffd13b] transition-colors"
+          >
+            <span>Buka Konsultan Chatbot</span>
+            <ArrowRight size={14} />
+          </Link>
         </div>
 
-        {/* Diagnoses Cards Grid */}
+        {/* Grid Presets */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((diag, index) => {
-            const layerStyle = getOSILayerColor(diag.layer);
-            const sev = formatSeverity(diag.keparahan);
-
-            return (
-              <motion.div
-                key={diag.kode}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
+          {BUILD_PRESETS.map((preset, idx) => (
+            <motion.div
+              key={preset.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
+            >
+              <GlassCard
+                isHoverable
+                className="p-6 h-full flex flex-col justify-between border border-[rgba(255,255,255,0.06)] hover:border-[rgba(240,185,11,0.3)]"
               >
-                <GlassCard isHoverable className="p-5 sm:p-6 h-full flex flex-col justify-between rounded-2xl group transition-all duration-300">
-                  <div>
-                    {/* Top Row: Icon + Badges */}
-                    <div className="flex items-start justify-between gap-3 mb-3.5">
-                      <div
-                        className="w-11 h-11 rounded-xl flex items-center justify-center border shadow-sm group-hover:scale-105 transition-transform"
-                        style={{
-                          background: layerStyle.bg,
-                          borderColor: layerStyle.border,
-                          color: layerStyle.text,
-                        }}
-                      >
-                        <DynamicIcon name={diag.iconName} size={22} />
-                      </div>
-
-                      <div className="flex items-center gap-1.5 flex-wrap justify-end">
-                        <span
-                          className="px-2.5 py-1 rounded-md text-[11px] font-semibold border"
-                          style={{
-                            background: layerStyle.bg,
-                            borderColor: layerStyle.border,
-                            color: layerStyle.text,
-                          }}
-                        >
-                          {formatOSILayer(diag.layer)}
-                        </span>
-                        <span
-                          className="px-2.5 py-1 rounded-md text-[11px] font-semibold border"
-                          style={{
-                            background: sev.bg,
-                            borderColor: sev.border,
-                            color: sev.text,
-                          }}
-                        >
-                          {sev.label}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Title with flexible min-height for clean baseline */}
-                    <h3 className="text-base sm:text-lg font-bold text-[#eaecef] mb-1.5 min-h-[46px] flex items-center leading-snug">
-                      {diag.nama}
-                    </h3>
-                    <p className="text-xs font-mono text-[#848e9c] mb-3.5">
-                      rule: <span className="text-[#f0b90b]">diagnosis({diag.kode})</span>
-                    </p>
-
-                    {/* Solusi Preview Box - Expanded with full content without ellipsis */}
-                    <div className="p-3.5 sm:p-4 rounded-xl bg-[#13161c]/90 border border-[rgba(255,255,255,0.08)] mb-5 group-hover:border-[rgba(255,255,255,0.14)] transition-colors">
-                      <div className="flex items-center gap-1.5 text-[11px] font-semibold text-[#848e9c] mb-1.5">
-                        <Wrench size={12} className="text-[#f0b90b]" />
-                        <span>Rekomendasi Penanganan:</span>
-                      </div>
-                      <p className="text-xs sm:text-[13px] text-[#eaecef] leading-relaxed font-normal">
-                        {diag.solusi}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Gejala Trigger Count */}
-                  <div className="pt-3.5 border-t border-[rgba(255,255,255,0.06)] flex items-center justify-between text-xs text-[#848e9c]">
-                    <div className="flex items-center gap-1.5">
-                      <CheckCircle2 size={14} className="text-[#0ecb81]" />
-                      <span className="font-medium">{diag.gejalaSyarat.length} Gejala Syarat</span>
-                    </div>
-                    <Link
-                      href="/diagnose"
-                      className="text-[#f0b90b] hover:text-[#fcd535] flex items-center gap-1 text-xs font-bold transition-colors"
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <span
+                      className="px-2.5 py-1 rounded-full text-[11px] font-semibold border"
+                      style={{
+                        backgroundColor: `${preset.warna}15`,
+                        color: preset.warna,
+                        borderColor: `${preset.warna}30`,
+                      }}
                     >
-                      Uji Kasus <ChevronRight size={13} />
-                    </Link>
+                      {preset.badge}
+                    </span>
+                    <span className="font-mono text-xs font-bold text-[#eaecef]">
+                      {preset.kisaran}
+                    </span>
                   </div>
-                </GlassCard>
-              </motion.div>
-            );
-          })}
+
+                  <h3 className="text-lg font-bold text-[#eaecef] mb-2">{preset.nama}</h3>
+                  <p className="text-xs sm:text-sm text-[#848e9c] leading-relaxed mb-6">
+                    {preset.deskripsi}
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-[rgba(255,255,255,0.06)] flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-[11px] text-[#0ecb81]">
+                    <CheckCircle2 size={13} />
+                    <span>100% Kompatibel</span>
+                  </div>
+
+                  <Link
+                    href={`/diagnose`}
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-[#f0b90b] hover:underline"
+                  >
+                    <span>Konsultasikan</span>
+                    <ArrowRight size={12} />
+                  </Link>
+                </div>
+              </GlassCard>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

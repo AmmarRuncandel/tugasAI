@@ -1,44 +1,59 @@
-export type OSIlayer =
-  | "physical_layer"
-  | "data_link_layer"
-  | "network_layer"
-  | "application_layer";
+export type ComponentCategory =
+  | "cpu"
+  | "motherboard"
+  | "ram"
+  | "gpu"
+  | "psu"
+  | "storage"
+  | "casing";
 
-export type SeverityLevel = "rendah" | "sedang" | "tinggi";
+export type BuildTier = "entry" | "mid" | "high" | "flagship";
 
-export interface Gejala {
+export interface PCComponent {
   id: string;
-  pertanyaan: string;
-  konteks: string;
-  category: "Kabel & Port" | "Nirkabel (WiFi)" | "IP & Konfigurasi" | "Konektivitas Ping" | "DNS & Layanan" | "Hardware / Adapter";
+  nama: string;
+  kategori: ComponentCategory;
+  brand: string;
+  harga: number;
+  spesifikasi: string;
   iconName: string;
 }
 
-export interface DiagnosisInfo {
-  kode: string;
-  nama: string;
-  layer: OSIlayer;
-  keparahan: SeverityLevel;
-  solusi: string;
-  gejalaSyarat: string[];
-  iconName: string;
+export interface BuildRecommendation {
+  kebutuhan: string;
+  labelKebutuhan: string;
+  cpu: string;
+  namaCpu: string;
+  mobo: string;
+  namaMobo: string;
+  ram: string;
+  namaRam: string;
+  gpu: string;
+  namaGpu: string;
+  psu: string;
+  namaPsu: string;
+  storage: string;
+  namaStorage: string;
+  casing: string;
+  namaCasing: string;
+  totalHarga: number;
+  justifikasi: string;
 }
 
-export interface DiagnosisResultData {
-  kode: string;
-  nama: string;
-  layer: string;
-  keparahan: string;
-  solusi: string;
-  gejalaTerpenuhi: string[];
+export interface CompatibilityAnalysis {
+  status: "kompatibel" | "tidak_kompatibel";
+  totalHarga: number;
+  alasan: string[];
 }
 
-export interface DiagnosisApiResponse {
-  success: boolean;
-  diagnosis?: DiagnosisResultData;
-  message?: string;
-  error?: string;
-  rawOutput?: string;
+export interface ChatMessage {
+  id: string;
+  sender: "bot" | "user";
+  text: string;
+  timestamp: string;
+  recommendation?: BuildRecommendation;
+  compatibility?: CompatibilityAnalysis;
+  quickReplies?: { label: string; value: string }[];
 }
 
 export interface QueryResult {

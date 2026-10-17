@@ -6,9 +6,9 @@ import { TeamSection } from "@/components/about/TeamSection";
 import { Brain } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Tentang Sistem — 212 NetExpert AI",
+  title: "Tentang Sistem — 212 PCExpert AI",
   description:
-    "Arsitektur sistem pakar 212 diagnosis jaringan berbasis SWI-Prolog dengan Backward-Chaining.",
+    "Arsitektur sistem pakar 212 konsultan perakitan PC & kompatibilitas hardware berbasis SWI-Prolog.",
 };
 
 export default function AboutPage() {
@@ -21,12 +21,12 @@ export default function AboutPage() {
           <span>Arsitektur Sistem Pakar Berbasis Logika</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#eaecef]">
-          Tentang <span className="bg-gradient-to-r from-[#f0b90b] to-[#00d4ff] bg-clip-text text-transparent">212 NetExpert AI</span>
+          Tentang <span className="bg-gradient-to-r from-[#f0b90b] to-[#00d4ff] bg-clip-text text-transparent">212 PCExpert AI</span>
         </h1>
         <p className="text-sm sm:text-base text-[#848e9c] leading-relaxed">
-          NetExpert AI menggabungkan paradigma pemrograman deklaratif logika SWI-Prolog
-          dengan antarmuka web modern untuk mewujudkan sistem diagnosis jaringan yang cepat,
-          akurat, dan memiliki transparansi jalur penalaran (Explanatory Interface).
+          PCExpert AI menggabungkan paradigma pemrograman deklaratif logika SWI-Prolog
+          dengan antarmuka web modern untuk mewujudkan sistem konsultan perakitan PC dan
+          validasi kompatibilitas hardware yang cerdas, akurat, dan memiliki transparansi jalur penalaran (Explanatory Interface).
         </p>
       </div>
 

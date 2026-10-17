@@ -52,8 +52,8 @@ export default function ExplorerPage() {
           Prolog Knowledge Base Explorer
         </h1>
         <p className="mt-2 text-sm text-[#848e9c] max-w-2xl leading-relaxed">
-          Verifikasi kebenaran ontologi, aturan logika deduktif, traversal topologi rekursif,
-          dan manipulasi list sesuai dengan 5 kriteria pengujian akademik pada materi kuliah.
+          Verifikasi kebenaran ontologi hardware, aturan logika deduktif kecocokan socket,
+          penjumlahan rekursif harga rakitan, dan operasi irisan form factor sesuai 5 kriteria pengujian akademik.
         </p>
       </div>
 

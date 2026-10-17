@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { GraduationCap, Terminal } from "lucide-react";
+import { GraduationCap, Terminal, Cpu } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -14,12 +14,12 @@ export default function Footer() {
                 212
               </div>
               <span className="font-bold text-sm text-[#eaecef]">
-                212 <span className="text-[#f0b90b]">NetExpert</span> AI
+                212 <span className="text-[#f0b90b]">PCExpert</span> AI
               </span>
             </div>
             <p className="text-xs leading-relaxed max-w-sm text-[#848e9c]">
-              Sistem Pakar Diagnosis Gangguan Jaringan Komputer berbasis representasi logika,
-              aturan produksi (IF-THEN), dan penalaran Backward-Chaining menggunakan SWI-Prolog.
+              Sistem Pakar Konsultan Perakitan PC & Kompatibilitas Hardware berbasis representasi logika,
+              aturan produksi (IF-THEN), dan penalaran Constraint Satisfaction menggunakan SWI-Prolog.
             </p>
             <div className="flex items-center gap-2 pt-1 text-[11px] text-[#5e6673]">
               <GraduationCap size={14} className="text-[#f0b90b]" />
@@ -40,7 +40,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/diagnose" className="hover:text-[#f0b90b] transition-colors flex items-center gap-1">
-                  Mulai Diagnosis Interaktif
+                  Konsultasi & Cek PC
                 </Link>
               </li>
               <li>
@@ -64,11 +64,11 @@ export default function Footer() {
             <ul className="space-y-1.5 font-mono text-[11px] text-[#848e9c]">
               <li className="flex items-center gap-1.5">
                 <Terminal size={12} className="text-[#00d4ff]" />
-                <span>Engine: SWI-Prolog 9.x</span>
+                <span>Engine: SWI-Prolog 9.x / 10.x</span>
               </li>
-              <li>Metode: Backward-Chaining</li>
-              <li>Total Kasus: 7 Gangguan Jaringan</li>
-              <li>Jumlah Gejala: 13 Aturan Fakta</li>
+              <li>Metode: Constraint Logic & Rules</li>
+              <li>Modul: Chatbot & Compatibility Checker</li>
+              <li>Knowledge Base: pakar_pc.pl</li>
               <li className="text-[#f0b90b]">Dosen: Dr. Aradea, S.T., M.T.</li>
             </ul>
           </div>
@@ -76,7 +76,7 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-[rgba(255,255,255,0.06)] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#5e6673]">
           <div>
-            © 2026 212 NetExpert AI. Proyek Tugas Besar Kecerdasan Buatan.
+            © 2026 212 PCExpert AI. Proyek Tugas Besar Kecerdasan Buatan.
           </div>
           <div className="flex items-center gap-4">
             <span className="px-2 py-0.5 rounded bg-[rgba(255,255,255,0.04)] text-[#848e9c]">

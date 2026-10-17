@@ -5,9 +5,9 @@ import { DiagnosesShowcase } from "@/components/home/DiagnosesShowcase";
 import { ArchitectureWorkflow } from "@/components/home/ArchitectureWorkflow";
 
 export const metadata: Metadata = {
-  title: "212 NetExpert AI Sistem Pakar Diagnosis Gangguan Jaringan",
+  title: "212 PCExpert AI — Sistem Pakar Konsultan Perakitan PC & Kompatibilitas",
   description:
-    "Sistem Pakar 212 berbasis SWI-Prolog dengan Backward-Chaining untuk mendiagnosis 7 jenis gangguan jaringan komputer secara otomatis dan transparan.",
+    "Sistem Pakar cerdas berbasis SWI-Prolog dengan Constraint Logic untuk merekomendasikan rakitan PC dan memvalidasi kompatibilitas hardware secara otomatis dan transparan.",
 };
 
 export default function HomePage() {
