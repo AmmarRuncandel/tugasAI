@@ -19,11 +19,10 @@ export default function Footer() {
           {/* Brand info */}
           <div className="md:col-span-2 space-y-3">
             <Link href="/" className="inline-flex items-center gap-2 group select-none">
-              <div className="w-7 h-7 rounded-md bg-[#14171c] border border-[rgba(240,185,11,0.5)] flex items-center justify-center font-mono font-black text-[11px] text-[#f0b90b] shadow-[0_0_12px_rgba(240,185,11,0.2)] group-hover:border-[#f0b90b] group-hover:scale-105 transition-all">
-                212
+              <div className="w-7 h-7 rounded-md bg-[#14171c] border border-[rgba(240,185,11,0.5)] flex items-center justify-center shadow-[0_0_12px_rgba(240,185,11,0.2)] group-hover:border-[#f0b90b] group-hover:scale-105 transition-all">
+                <span className="font-mono font-black text-[10px] text-[#f0b90b]">PC</span>
               </div>
               <div className="flex items-center gap-1.5 font-extrabold text-sm tracking-tight text-[#eaecef]">
-                <span>212</span>
                 <span className="text-[#f0b90b]">PCExpert</span>
                 <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[rgba(240,185,11,0.15)] text-[#f0b90b] border border-[rgba(240,185,11,0.3)]">
                   AI

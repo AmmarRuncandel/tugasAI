@@ -77,17 +77,6 @@ export function DatasetShowcase() {
               <span>946 Komponen</span>
             </button>
             <button
-              onClick={() => setActiveTab("prices")}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-                activeTab === "prices"
-                  ? "bg-[#00d4ff] text-[#0e1116] shadow-[0_0_15px_rgba(0,212,255,0.3)]"
-                  : "text-[#848e9c] hover:text-[#eaecef]"
-              }`}
-            >
-              <ShieldCheck size={13} />
-              <span>Harga Pasar Rupiah</span>
-            </button>
-            <button
               onClick={() => setActiveTab("rules")}
               className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                 activeTab === "rules"
@@ -109,57 +98,7 @@ export function DatasetShowcase() {
             transition={{ duration: 0.3 }}
             className="space-y-6"
           >
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="p-5 rounded-2xl bg-[#14171f] border border-[rgba(240,185,11,0.25)] flex flex-col justify-between">
-                <div>
-                  <span className="text-[11px] font-semibold text-[#848e9c] uppercase tracking-wider">
-                    Total Produk Dikurasi
-                  </span>
-                  <div className="text-3xl font-black text-[#f0b90b] font-mono mt-1">12.797</div>
-                </div>
-                <div className="text-xs text-[#848e9c] mt-4 pt-3 border-t border-[rgba(255,255,255,0.06)]">
-                  Produk dari berbagai merek & toko
-                </div>
-              </div>
 
-              <div className="p-5 rounded-2xl bg-[#14171f] border border-[rgba(0,212,255,0.25)] flex flex-col justify-between">
-                <div>
-                  <span className="text-[11px] font-semibold text-[#848e9c] uppercase tracking-wider">
-                    Komponen Unik Terverifikasi
-                  </span>
-                  <div className="text-3xl font-black text-[#00d4ff] font-mono mt-1">946</div>
-                </div>
-                <div className="text-xs text-[#848e9c] mt-4 pt-3 border-t border-[rgba(255,255,255,0.06)]">
-                  Terintegrasi ke basis pengetahuan sistem
-                </div>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-[#14171f] border border-[rgba(14,203,129,0.25)] flex flex-col justify-between">
-                <div>
-                  <span className="text-[11px] font-semibold text-[#848e9c] uppercase tracking-wider">
-                    Duplikasi Dibuang
-                  </span>
-                  <div className="text-3xl font-black text-[#0ecb81] font-mono mt-1">11.851</div>
-                </div>
-                <div className="text-xs text-[#848e9c] mt-4 pt-3 border-t border-[rgba(255,255,255,0.06)]">
-                  Listing ganda & data tidak valid dihapus
-                </div>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-[#14171f] border border-[rgba(192,132,252,0.25)] flex flex-col justify-between">
-                <div>
-                  <span className="text-[11px] font-semibold text-[#848e9c] uppercase tracking-wider">
-                    Dukungan Seri Modern
-                  </span>
-                  <div className="text-2xl font-black text-[#c084fc] font-mono mt-1">Intel Arc</div>
-                </div>
-                <div className="text-xs text-[#848e9c] mt-4 pt-3 border-t border-[rgba(255,255,255,0.06)]">
-                  A380, A580, A750, A770 terintegrasi
-                </div>
-              </div>
-            </div>
-
-            {/* Per-category breakdown */}
             <GlassCard className="p-6">
               <h3 className="text-base font-bold text-[#eaecef] mb-4 flex items-center justify-between flex-wrap gap-2">
                 <span>Rincian Komponen per Kategori Hardware</span>

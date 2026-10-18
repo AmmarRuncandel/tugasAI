@@ -1076,15 +1076,15 @@ rekomendasi(esports_gaming, CPU, Mobo, RAM, GPU, PSU, Storage, Casing, TotalHarg
     rakitan_valid(CPU, Mobo, RAM, GPU, PSU, Storage, Casing),
     hitung_total_harga([CPU, Mobo, RAM, GPU, PSU, Storage, Casing], TotalHarga), !.
 
-% Kebutuhan 3: Intel Arc Creator & Gaming Edition
-rekomendasi(intel_arc_edition, CPU, Mobo, RAM, GPU, PSU, Storage, Casing, TotalHarga, 'Varian Intel Arc A750 8GB dengan akselerasi hardware AV1 encoder & XMX AI cores') :-
+% Kebutuhan 3: Intel Arc Creator & Gaming Edition (Budget ~ Rp 12-14 Juta)
+rekomendasi(intel_arc_edition, CPU, Mobo, RAM, GPU, PSU, Storage, Casing, TotalHarga, 'Varian Intel Arc A750 8GB dengan akselerasi hardware AV1 encoder & XMX AI cores, budget presisi kisaran Rp 13 Juta') :-
     CPU = cpu_i5_12400f,
     Mobo = mobo_b660m_plus_ddr4,
     RAM = ram_corsair_ddr4_16gb_3200,
     GPU = gpu_intel_arc_a750,
     PSU = psu_psu_650w_bronze,
     Storage = ssd_western_digital_1000gb_nvme,
-    Casing = case_cooler_master_d500d,
+    Casing = case_deepcool_matrexx_40,
     rakitan_valid(CPU, Mobo, RAM, GPU, PSU, Storage, Casing),
     hitung_total_harga([CPU, Mobo, RAM, GPU, PSU, Storage, Casing], TotalHarga), !.
 

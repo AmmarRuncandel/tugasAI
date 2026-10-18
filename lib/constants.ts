@@ -31,7 +31,7 @@ export const BUILD_PRESETS = [
     id: "intel_arc_edition",
     nama: "Intel Arc Creator & Gaming Edition",
     badge: "Special Intel Arc",
-    kisaran: "Rp 10 - 12 Juta",
+    kisaran: "Rp 12 - 14 Juta",
     deskripsi: "Menggunakan GPU Intel Arc A750 8GB dengan dual AV1 hardware encoder & XMX AI cores, siap libas game 1080p & editing video.",
     warna: "#38bdf8",
     spekKunci: ["Intel i5-12400F", "Intel Arc A750 8GB", "16GB RAM DDR4", "B660M DDR4", "PSU 650W"],

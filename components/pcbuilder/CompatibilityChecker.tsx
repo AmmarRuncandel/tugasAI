@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ALL_COMPONENTS } from "@/lib/constants";
 import { CompatibilityAnalysis } from "@/lib/types";
@@ -21,6 +21,8 @@ import {
   HelpCircle,
   Sparkles,
   ChevronDown,
+  Search,
+  X,
 } from "lucide-react";
 
 // Skenario Pengujian Ujian Akademik AI — no emoji, use color indicator
@@ -97,7 +99,7 @@ const DEMO_SCENARIOS = [
   },
 ];
 
-// Custom styled select — matches dark UI theme
+// Custom styled select — matches dark UI theme with embedded search
 interface StyledSelectProps {
   value: string;
   onChange: (v: string) => void;
@@ -108,6 +110,27 @@ interface StyledSelectProps {
 function StyledSelect({ value, onChange, options, accentColor = "#f0b90b" }: StyledSelectProps) {
   const selected = options.find((o) => o.id === value);
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Auto-focus search input when dropdown opens
+  useEffect(() => {
+    if (open) {
+      const timer = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 50);
+      return () => clearTimeout(timer);
+    } else {
+      setSearch("");
+    }
+  }, [open]);
+
+  // Filtered options based on search query
+  const filteredOptions = useMemo(() => {
+    if (!search.trim()) return options;
+    const query = search.toLowerCase().trim();
+    return options.filter((opt) => opt.nama.toLowerCase().includes(query));
+  }, [options, search]);
 
   return (
     <div className="relative">
@@ -134,7 +157,7 @@ function StyledSelect({ value, onChange, options, accentColor = "#f0b90b" }: Sty
         />
       </button>
 
-      {/* Dropdown */}
+      {/* Dropdown with Search Menu */}
       {open && (
         <>
           {/* Backdrop */}
@@ -142,29 +165,82 @@ function StyledSelect({ value, onChange, options, accentColor = "#f0b90b" }: Sty
             className="fixed inset-0 z-10"
             onClick={() => setOpen(false)}
           />
-          <div className="absolute top-full mt-1.5 left-0 right-0 z-20 max-h-56 overflow-y-auto rounded-xl bg-[#1a1f2a] border border-[rgba(255,255,255,0.12)] shadow-[0_8px_32px_rgba(0,0,0,0.6)] py-1">
-            {options.map((opt) => {
-              const isActive = opt.id === value;
-              return (
-                <button
-                  key={opt.id}
-                  type="button"
-                  onClick={() => { onChange(opt.id); setOpen(false); }}
-                  className={`w-full text-left px-3 py-2.5 text-xs transition-colors flex items-start justify-between gap-2.5 cursor-pointer ${
-                    isActive
-                      ? "bg-[rgba(240,185,11,0.12)] text-[#f0b90b]"
-                      : "text-[#848e9c] hover:bg-[rgba(255,255,255,0.05)] hover:text-[#eaecef]"
-                  }`}
-                >
-                  <span className="line-clamp-2 leading-snug font-medium break-words flex-1 min-w-0" title={opt.nama}>
-                    {opt.nama}
-                  </span>
-                  <span className={`shrink-0 font-mono text-[11px] mt-0.5 ${isActive ? "text-[#f0b90b]" : "text-[#5e6673]"}`}>
-                    {formatRupiah(opt.harga)}
-                  </span>
-                </button>
-              );
-            })}
+
+          <div className="absolute top-full mt-1.5 left-0 right-0 z-20 rounded-xl bg-[#1a1f2a] border border-[rgba(255,255,255,0.14)] shadow-[0_12px_40px_rgba(0,0,0,0.7)] overflow-hidden flex flex-col">
+            {/* Search Menu Header */}
+            <div className="p-2 border-b border-[rgba(255,255,255,0.08)] bg-[#151922]">
+              <div className="relative flex items-center">
+                <Search size={13} className="absolute left-2.5 text-[#848e9c] pointer-events-none" />
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Escape") {
+                      setOpen(false);
+                    }
+                  }}
+                  placeholder="Cari komponen..."
+                  className="w-full bg-[#0e1117] border border-[rgba(255,255,255,0.1)] focus:border-[rgba(240,185,11,0.6)] text-xs text-[#eaecef] placeholder-[#5e6673] rounded-lg pl-8 pr-7 py-2 outline-none transition-colors"
+                />
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSearch("");
+                      inputRef.current?.focus();
+                    }}
+                    className="absolute right-2 text-[#848e9c] hover:text-[#eaecef] p-0.5 rounded cursor-pointer"
+                    title="Hapus pencarian"
+                  >
+                    <X size={13} />
+                  </button>
+                )}
+              </div>
+              <div className="flex items-center justify-between mt-1.5 px-1 text-[10px] text-[#5e6673]">
+                <span>{filteredOptions.length} komponen ditemukan</span>
+                {search && <span className="text-[#f0b90b] font-medium">Filter aktif</span>}
+              </div>
+            </div>
+
+            {/* Options List */}
+            <div className="max-h-56 overflow-y-auto py-1 divide-y divide-[rgba(255,255,255,0.03)]">
+              {filteredOptions.length > 0 ? (
+                filteredOptions.map((opt) => {
+                  const isActive = opt.id === value;
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => {
+                        onChange(opt.id);
+                        setOpen(false);
+                      }}
+                      className={`w-full text-left px-3 py-2.5 text-xs transition-colors flex items-start justify-between gap-2.5 cursor-pointer ${
+                        isActive
+                          ? "bg-[rgba(240,185,11,0.12)] text-[#f0b90b]"
+                          : "text-[#848e9c] hover:bg-[rgba(255,255,255,0.05)] hover:text-[#eaecef]"
+                      }`}
+                    >
+                      <span className="line-clamp-2 leading-snug font-medium break-words flex-1 min-w-0" title={opt.nama}>
+                        {opt.nama}
+                      </span>
+                      <span className={`shrink-0 font-mono text-[11px] mt-0.5 ${isActive ? "text-[#f0b90b]" : "text-[#5e6673]"}`}>
+                        {formatRupiah(opt.harga)}
+                      </span>
+                    </button>
+                  );
+                })
+              ) : (
+                <div className="py-6 px-4 text-center space-y-1">
+                  <p className="text-xs text-[#eaecef] font-medium">Komponen tidak ditemukan</p>
+                  <p className="text-[11px] text-[#5e6673]">
+                    Tidak ada hasil untuk &quot;{search}&quot;
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </>
       )}

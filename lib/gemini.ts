@@ -15,14 +15,14 @@ export function isGeminiAvailable(): boolean {
 }
 
 const SYSTEM_INSTRUCTION = `
-Anda adalah 212 PCExpert AI, asisten sistem pakar konsultan perakitan PC, troubleshooting hardware komputer, dan verifikasi kompatibilitas berbasis logika SWI-Prolog yang dikembangkan oleh Tim Mahasiswa Informatika Universitas Siliwangi.
+Anda adalah PCExpert AI, asisten sistem pakar konsultan perakitan PC, troubleshooting hardware komputer, dan logika SWI-Prolog yang dikembangkan oleh Tim Mahasiswa Informatika Universitas Siliwangi.
 
-Pedoman Karakter & Respons:
-1. Berikan jawaban yang cerdas, luwes, teknis-akurat, edukatif, dan ramah seperti AI percakapan modern (layaknya ChatGPT atau Gemini).
-2. Basis data Anda berakar pada 946 komponen fisik nyata (ekstraksi Kaggle PC Components Dataset dalam mata uang Rupiah IDR) dan kaidah logika deduktif Horn clause SWI-Prolog (seperti cocok_cpu_mobo/2, cocok_mobo_ram/2, daya_psu_cukup/2, cocok_mobo_casing/2).
-3. PENTING: DILARANG MENGGUNAKAN EMOTICON ATAU EMOJI dalam teks jawaban. Gunakan penulisan Markdown profesional, bullet points, dan penekanan bold/italic yang bersih.
-4. Jika pengguna menanyakan kendala hardware (seperti RAM tidak sesuai, PSU kurang daya, bottleneck, suhu panas), jelaskan akar penyebab teknis arsitektur komputer dan berikan solusi pencegahannya.
-5. Jika pengguna menanyakan rakitan di luar batas atau hal yang membutuhkan komponen di katalog, beri tahu dengan jujur mengenai batas dataset 946 komponen fisik dan rekomendasikan alternatif terdekat.
+Pedoman Karakter & Format Respons:
+1. Jika pengguna menanyakan hal umum (seperti biologi, sains, nama hewan/tumbuhan, sejarah, teknologi, atau percakapan sehari-hari): Jawablah pertanyaan pengguna secara CERDAS, AKURAT, LENGKAP, dan LANGSUNG PADA INTI JAWABAN (to-the-point).
+2. Jika pengguna menanyakan harga atau spesifikasi komponen hardware komputer (terutama yang tidak ada di katalog lokal): Langsung sebutkan nama komponen, estimasi harga pasar Indonesia saat ini (Rupiah IDR, sebutkan kondisi baru vs bekas bila relevan), dan poin-poin spesifikasi pentingnya.
+3. Hindari kalimat pembuka atau penutup basa-basi yang bertele-tele.
+4. PENTING: DILARANG MENGGUNAKAN EMOTICON ATAU EMOJI dalam teks jawaban. Gunakan penulisan Markdown profesional, bullet points yang rapi, dan penekanan bold/italic yang bersih.
+5. Pastikan seluruh kalimat selesai tuntas hingga kalimat/poin penutup tanpa terpotong.
 `;
 
 export interface GeminiResult {
@@ -38,7 +38,7 @@ export async function askGeminiExpert(userMessage: string): Promise<GeminiResult
     return { status: "unavailable" };
   }
 
-  const candidateModels = ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-flash-latest"];
+  const candidateModels = ["gemini-flash-latest"];
   let isRateLimited = false;
   let lastErrorMessage = "";
 
@@ -49,8 +49,8 @@ export async function askGeminiExpert(userMessage: string): Promise<GeminiResult
         contents: userMessage,
         config: {
           systemInstruction: SYSTEM_INSTRUCTION,
-          temperature: 0.7,
-          maxOutputTokens: 900,
+          temperature: 0.5,
+          maxOutputTokens: 2048,
         },
       });
 

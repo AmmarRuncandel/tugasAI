@@ -64,7 +64,7 @@ export function HeroSection() {
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#eaecef] max-w-5xl mx-auto leading-[1.12]"
         >
           Sistem Pakar Konsultan{" "}
-          <span className="bg-gradient-to-r from-[#f0b90b] via-[#f5c842] to-[#00d4ff] bg-clip-text text-transparent">
+          <span className="text-[#f0b90b]">
             Perakitan PC &amp; Kompatibilitas
           </span>
         </motion.h1>
@@ -111,65 +111,7 @@ export function HeroSection() {
           </Link>
         </motion.div>
 
-        {/* Stats — modern card-style with dividers */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 max-w-5xl mx-auto"
-        >
-          {/* Top border line */}
-          <div className="h-px bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.1)] to-transparent mb-0" />
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-[rgba(255,255,255,0.07)] border border-[rgba(255,255,255,0.07)] rounded-2xl overflow-hidden bg-[#0e1116]/60 backdrop-blur-sm">
-            {STATS.map((stat, idx) => {
-              const Icon = stat.icon;
-              return (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.5 + idx * 0.08 }}
-                  className="relative flex flex-col items-start sm:items-center text-left sm:text-center px-5 sm:px-6 py-5 sm:py-6 group hover:bg-[rgba(255,255,255,0.02)] transition-colors"
-                >
-                  {/* Top accent line per stat */}
-                  <div
-                    className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ background: `linear-gradient(90deg, transparent, ${stat.color}80, transparent)` }}
-                  />
-
-                  {/* Icon badge */}
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center mb-3 border"
-                    style={{
-                      backgroundColor: `${stat.color}15`,
-                      borderColor: `${stat.color}30`,
-                      color: stat.color,
-                    }}
-                  >
-                    <Icon size={16} />
-                  </div>
-
-                  {/* Value */}
-                  <div
-                    className="text-2xl sm:text-3xl font-extrabold font-mono leading-none"
-                    style={{ color: stat.color }}
-                  >
-                    {stat.value}
-                  </div>
-
-                  {/* Label */}
-                  <div className="text-xs font-semibold text-[#eaecef] mt-1.5">{stat.label}</div>
-
-                  {/* Sublabel */}
-                  <div className="text-[11px] text-[#5e6673] mt-0.5 leading-tight hidden sm:block">
-                    {stat.sublabel}
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
       </div>
     </section>
   );
