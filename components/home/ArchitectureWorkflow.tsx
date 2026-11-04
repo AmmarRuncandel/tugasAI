@@ -8,29 +8,29 @@ import { GlassCard } from "@/components/ui/GlassCard";
 const STEPS = [
   {
     step: "01",
-    title: "Input Gejala Pengguna",
-    desc: "Pengguna menjawab pertanyaan interaktif seputar status fisik LAN, sinyal WiFi, IP, ping gateway, dan DNS.",
+    title: "Input Kebutuhan / Komponen",
+    desc: "Pengguna berkonsultasi via Chatbot interaktif (budget & game) atau memilih kombinasi hardware sendiri pada kalkulator kompatibilitas.",
     icon: CheckSquare,
     color: "#f0b90b",
   },
   {
     step: "02",
-    title: "Batch Term Translation",
-    desc: "Next.js mengemas daftar fakta yang dipilih menjadi term list Prolog: diagnosa_batch([gejala1, gejala2, ...]).",
+    title: "Translasi Query Prolog",
+    desc: "Next.js menerjemahkan permintaan ke bentuk tujuan pembuktian Prolog: batch_rekomendasi(gaming) atau batch_cek_kompatibilitas(...).",
     icon: Binary,
     color: "#00d4ff",
   },
   {
     step: "03",
-    title: "Backward-Chaining Execution",
-    desc: "SWI-Prolog membuktikan hipotesis secara rekursif melalui aturan produksi :- dan mencocokkan fakta di memori kerja.",
+    title: "Constraint Logic Execution",
+    desc: "SWI-Prolog mengevaluasi aturan Horn clause :- menguji kesamaan socket, slot RAM DDR, batas daya PSU, dan ukuran casing secara deduktif.",
     icon: ArrowRight,
     color: "#0ecb81",
   },
   {
     step: "04",
     title: "Explanatory Output",
-    desc: "Sistem mengembalikan diagnosis beserta justifikasi daftar gejala yang terpenuhi serta solusi praktis.",
+    desc: "Sistem mengembalikan susunan rakitan lengkap, rincian biaya, beserta justifikasi ilmiah mengapa komponen tersebut 100% kompatibel.",
     icon: FileText,
     color: "#c084fc",
   },
@@ -45,7 +45,7 @@ export function ArchitectureWorkflow() {
             Alur Penalaran
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#eaecef] mt-2">
-            Bagaimana NetExpert AI Menarik Kesimpulan?
+            Bagaimana PCExpert AI Menalar & Memvalidasi?
           </h2>
           <p className="text-sm text-[#848e9c] mt-3">
             Integrasi hybrid antara frontend web modern dan mesin inferensi berbasis logika deklaratif SWI-Prolog.

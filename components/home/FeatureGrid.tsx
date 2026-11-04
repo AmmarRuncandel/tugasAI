@@ -2,35 +2,35 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { GitBranch, Layers, Lightbulb, Terminal } from "lucide-react";
+import { GitBranch, MessageSquare, Lightbulb, Terminal, Cpu, ShieldCheck } from "lucide-react";
 import { GlassCard } from "@/components/ui/GlassCard";
 
 const FEATURES = [
   {
     icon: GitBranch,
-    title: "Backward-Chaining Logic",
-    desc: "Penalaran goal-driven di mana mesin inferensi Prolog menguji hipotesis diagnosis dan membuktikan setiap premis gejala secara otomatis.",
+    title: "Constraint Logic Reasoning",
+    desc: "Penalaran berbasis batasan fisik (Constraint Satisfaction): kecocokan socket CPU-Motherboard, generasi DDR RAM, dan kecukupan watt PSU.",
     color: "#f0b90b",
     glowColor: "yellow" as const,
   },
   {
-    icon: Layers,
-    title: "Cakupan 7 Gangguan Layer OSI",
-    desc: "Meliputi Physical, Data Link, Network, hingga Application Layer sesuai hierarki standar protokol jaringan komputer.",
+    icon: MessageSquare,
+    title: "Interactive AI Chatbot Consultant",
+    desc: "Pengguna dapat bebas berkonsultasi, mengajukan budget dan kebutuhan (Gaming 1080p, 1440p, Rendering 4K, atau Office) via percakapan interaktif.",
     color: "#00d4ff",
     glowColor: "cyan" as const,
   },
   {
     icon: Lightbulb,
     title: "Explanatory Interface",
-    desc: "Transparansi penalaran AI setiap hasil diagnosis disertai daftar gejala yang memicu kesimpulan dan rekomendasi penanganan.",
+    desc: "Transparansi penalaran AI setiap rekomendasi rakitan disertai justifikasi mengapa komponen dipilih dan lolos verifikasi kompatibilitas.",
     color: "#0ecb81",
     glowColor: "green" as const,
   },
   {
     icon: Terminal,
     title: "Real Live SWI-Prolog Subprocess",
-    desc: "Bukan simulasi dummy JavaScript. Frontend terhubung langsung ke runtime binary SWI-Prolog via child_process bridge.",
+    desc: "Bukan simulasi dummy JavaScript. Frontend web terhubung langsung ke runtime binary SWI-Prolog asli via child_process bridge.",
     color: "#f7931a",
     glowColor: "yellow" as const,
   },
