@@ -1,7 +1,13 @@
 import { GoogleGenAI } from "@google/genai";
 
+const DEFAULT_GEMINI_KEY = "AIzaSyDoWS2eaVFeJuvClaeemQeDiSHN-uARdIs";
+
+function getApiKey(): string {
+  return process.env.GEMINI_API_KEY?.trim() || DEFAULT_GEMINI_KEY;
+}
+
 function getAiClient(): GoogleGenAI | null {
-  const key = process.env.GEMINI_API_KEY?.trim() || "";
+  const key = getApiKey();
   if (!key) return null;
   try {
     return new GoogleGenAI({ apiKey: key });
@@ -11,7 +17,7 @@ function getAiClient(): GoogleGenAI | null {
 }
 
 export function isGeminiAvailable(): boolean {
-  return Boolean(process.env.GEMINI_API_KEY?.trim());
+  return Boolean(getApiKey());
 }
 
 const SYSTEM_INSTRUCTION = `
@@ -38,7 +44,13 @@ export async function askGeminiExpert(userMessage: string): Promise<GeminiResult
     return { status: "unavailable" };
   }
 
-  const candidateModels = ["gemini-flash-latest"];
+  // Model prioritas terbaru yang stabil dan berkinerja tinggi
+  const candidateModels = [
+    "gemini-3.5-flash-lite",
+    "gemini-3.8-flash",
+    "gemini-3.1-flash-lite",
+    "gemini-flash-latest",
+  ];
   let isRateLimited = false;
   let lastErrorMessage = "";
 
@@ -77,7 +89,7 @@ export async function askGeminiExpert(userMessage: string): Promise<GeminiResult
       ) {
         isRateLimited = true;
       }
-      console.warn(`Model ${modelName} attempt failed:`, msg.substring(0, 80));
+      console.warn(`Model ${modelName} attempt failed:`, msg.substring(0, 100));
     }
   }
 

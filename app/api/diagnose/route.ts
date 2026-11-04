@@ -1,14 +1,23 @@
 import { NextRequest } from "next/server";
-import { executeProlog } from "@/lib/prolog";
+import { executeProlog, isNativeSwiplAvailable } from "@/lib/prolog";
 
-// GET /api/diagnose — health check / tes koneksi swipl
+// GET /api/diagnose — health check & deteksi status SWI-Prolog
 export async function GET() {
   try {
+    const isNative = isNativeSwiplAvailable();
     const output = await executeProlog("write('SWIPL_OK')");
     const ok = output.includes("SWIPL_OK");
+
     return Response.json({
       status: ok ? "connected" : "error",
-      message: ok ? "SWI-Prolog terkoneksi dan siap." : "Respons tidak valid dari swipl.",
+      mode: isNative ? "native" : "cloud",
+      isNative,
+      engine: isNative
+        ? "SWI-Prolog Native Binary Subprocess"
+        : "Prolog Cloud Inference Engine (Rule-Based)",
+      message: isNative
+        ? "SWI-Prolog Native terdeteksi dan aktif."
+        : "Mesin Logika Prolog Cloud Engine aktif (Akses Lancar Tanpa Instalasi Lokal).",
       output,
     });
   } catch (err) {

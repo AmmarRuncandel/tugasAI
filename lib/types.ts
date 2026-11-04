@@ -17,6 +17,17 @@ export interface PCComponent {
   harga: number;
   spesifikasi: string;
   iconName: string;
+  socket?: string;
+  ramType?: string;
+  form?: string;
+  watt?: number;
+  minPsu?: number;
+  vram?: number;
+  tdp?: number;
+  tier?: string;
+  cap?: number;
+  speed?: number;
+  cert?: string;
 }
 
 export interface BuildRecommendation {
