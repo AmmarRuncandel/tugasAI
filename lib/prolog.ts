@@ -35,7 +35,7 @@ export function isNativeSwiplAvailable(): boolean {
   // 2. Check custom environment variable
   if (process.env.SWIPL_PATH) {
     const cleaned = process.env.SWIPL_PATH.replace(/^["']|["']$/g, "").trim();
-    if (cleaned && fs.existsSync(cleaned)) {
+    if (cleaned && fs.existsSync(/*turbopackIgnore: true*/ cleaned)) {
       cachedSwiplPath = cleaned;
       cachedIsNativeAvailable = true;
       return true;
@@ -44,7 +44,7 @@ export function isNativeSwiplAvailable(): boolean {
 
   // 3. Check known standard installation directories
   for (const p of KNOWN_PATHS) {
-    if (fs.existsSync(p)) {
+    if (fs.existsSync(/*turbopackIgnore: true*/ p)) {
       cachedSwiplPath = p;
       cachedIsNativeAvailable = true;
       return true;
@@ -66,14 +66,14 @@ export function getSwiplExecutable(): string {
 
   if (process.env.SWIPL_PATH) {
     const cleaned = process.env.SWIPL_PATH.replace(/^["']|["']$/g, "").trim();
-    if (cleaned && fs.existsSync(cleaned)) {
+    if (cleaned && fs.existsSync(/*turbopackIgnore: true*/ cleaned)) {
       cachedSwiplPath = cleaned;
       return cachedSwiplPath;
     }
   }
 
   for (const p of KNOWN_PATHS) {
-    if (fs.existsSync(p)) {
+    if (fs.existsSync(/*turbopackIgnore: true*/ p)) {
       cachedSwiplPath = p;
       return cachedSwiplPath;
     }
@@ -332,7 +332,7 @@ export async function executeProlog(query: string, timeoutMs = 10000): Promise<s
         "--quiet",
       ];
 
-      const proc = spawn(swiplBin, args, {
+      const proc = spawn(/*turbopackIgnore: true*/ swiplBin, args, {
         stdio: ["pipe", "pipe", "pipe"],
         shell: false,
       });
